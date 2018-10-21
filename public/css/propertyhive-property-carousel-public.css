@@ -1,0 +1,12 @@
+/**
+ * Property Hive Property Carousel CSS
+ */
+
+div.propertyhive.propertyhive-property-carousel-shortcode.flexslider {
+    border: none;
+}
+
+.propertyhive ul.properties li.propertyhive-property-carousel-property {
+    border-bottom: none;
+    clear: none
+}
