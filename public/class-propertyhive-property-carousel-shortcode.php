@@ -149,15 +149,24 @@ class Propertyhive_Property_Carousel_Shortcode {
 	}
 
 	/**
-	 * Filter to return the default template location.
+	 * Get the carousel loop template file path.
+	 *
+	 * Returns a default template for the property carousel items if one doesn't exist in the theme files.
 	 *
 	 * @since 1.0.0
-	 *
-	 * @TODO: Return a default template for the property carousel items if one doesn't exist in the theme files.
 	 *
 	 * @return string Full path of the file to be require(d) for the carousel loop template
 	 */
 	public static function property_carousel_loop_template() {
-		return plugin_dir_path( __FILE__ ) . 'partials/propertyhive-property-carousel.php';
+		$template = locate_template(
+			'property-carousel/propertyhive-property-carousel.php',
+			false
+		);
+
+		if ( empty( $template ) ) {
+			$template = plugin_dir_path( __FILE__ ) . 'partials/propertyhive-property-carousel.php';
+		}
+
+		return apply_filters( 'property_carousel_loop_template', $template );
 	}
 }
