@@ -59,6 +59,8 @@ class Propertyhive_Property_Carousel_Admin {
 	 * Add any admin notices that are relevant.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @uses Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available()
 	 */
 	public function add_admin_notices() {
 		if ( ! Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available() ) {

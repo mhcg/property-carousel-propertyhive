@@ -157,14 +157,7 @@ class Propertyhive_Property_Carousel_Shortcode {
 	 *
 	 * @return string Full path of the file to be require(d) for the carousel loop template
 	 */
-	protected static function property_carousel_loop_template() {
-//		global $post;
-//
-//		$is_my_template = $template !== locate_template( array( 'propertyhive-property-carousel.php' ) );
-//		if ( 'property' == $post->post_type  && $is_my_template ) {
+	public static function property_carousel_loop_template() {
 		return plugin_dir_path( __FILE__ ) . 'partials/propertyhive-property-carousel.php';
-//		}
-//
-//		return $template;
 	}
 }

@@ -121,9 +121,11 @@ class Propertyhive_Property_Carousel_Public {
 	 *
 	 * Outputs a FlexSlider for the specified attributes.
 	 *
-	 * @see Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode()
+	 * @see  Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
 	 * @since 1.0.0
+	 * @uses Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available()
+	 * @uses Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
 	 * @param array $attributes The shortcode attributes
 	 *
