@@ -131,6 +131,12 @@ class Propertyhive_Property_Carousel_Public {
 	 */
 	public function property_carousel_shortcode( $attributes ) {
 
+		// Output nothing if Property Hive plugin isn't also active
+		if ( ! Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available() ) {
+			return '';
+		}
+
+		// include the relevant styles and scripts and delegate the output the Shortcode helper
 		wp_enqueue_style( $this->get_flexslider_css_handle() );
 		wp_enqueue_style( $this->propertyhive_property_carousel );
 

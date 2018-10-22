@@ -46,7 +46,7 @@ class Propertyhive_Property_Carousel_Shortcode {
 	 * - office_id - Branch to filter on
 	 * - orderby - Usual 'orderby' (for WP_Query)
 	 * - order - ASC or DESC (for WP_Query)
-     * - meta_key - Optional used sorting by meta_value (for WP_Query)
+	 * - meta_key - Sorting by meta_value (for WP_Query)
 	 *
 	 * @since 1.0.0
 	 *
@@ -55,11 +55,6 @@ class Propertyhive_Property_Carousel_Shortcode {
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
 	public static function property_carousel_shortcode( $attributes = [] ) {
-		// Output nothing if Property Hive plugin isn't also active
-		if ( ! self::is_propertyhive_available() ) {
-			return '';
-		}
-
 		/**
 		 * @var string $featured Featured properties or not (true or false)
 		 * @var string $department Property Hive department to filter on
