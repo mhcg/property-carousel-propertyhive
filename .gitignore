@@ -1,0 +1,5 @@
+# not using composer
+composer.phar
+/vendor/
+composer.json
+composer.lock
