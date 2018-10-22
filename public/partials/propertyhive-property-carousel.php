@@ -23,7 +23,7 @@ if ( ! $property ) {
 }
 
 // Extra post classes
-$classes = array( 'clear' );
+$classes   = array( 'clear' );
 $classes[] = 'propertyhive-property-carousel-property';
 if ( $property->featured == 'yes' ) {
 	$classes[] = 'featured';
