@@ -19,8 +19,6 @@
  * @package    Propertyhive_Property_Carousel
  * @subpackage Propertyhive_Property_Carousel/includes
  * @author     MHCG LTD <contact@mhcg.co.uk>
- *
- * @codeCoverageIgnore Boilerplate Code - should have their own unit tests really
  */
 class Property_Carousel_Deactivator {
 

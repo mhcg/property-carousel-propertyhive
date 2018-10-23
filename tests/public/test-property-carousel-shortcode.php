@@ -1,6 +1,8 @@
 <?php
 /**
  * Tests the Shortcode helper class.
+ *
+ * @since 1.0.0
  */
 
 class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {

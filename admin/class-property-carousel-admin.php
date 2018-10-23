@@ -61,9 +61,13 @@ class Property_Carousel_Admin {
 	 * @since 1.0.0
 	 *
 	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
+     * @param bool $pretend_installed Used to override if Property Hive is available (for testing_
 	 */
-	public function add_admin_notices() {
-		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
+	public function add_admin_notices( bool $pretend_installed = false ) {
+		if (
+			false == Property_Carousel_Shortcode::is_propertyhive_available() &&
+			false == $pretend_installed
+		) {
 			add_action( 'admin_notices', function () {
 				?>
                 <div class="error notice">

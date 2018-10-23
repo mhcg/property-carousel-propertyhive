@@ -1,6 +1,8 @@
 <?php
 /**
  * @covers Property_Carousel_Loader
+ *
+ * @since 1.0.0
  */
 
 class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
@@ -147,7 +149,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * @covers Property_Carousel_Loader::run
 	 */
 	public function test_run_actions() {
-		$obj    = new Property_Carousel_Loader();
+		$obj = new Property_Carousel_Loader();
 		$obj->add_action( 'my_test_hook', $this, 'my_test_hook' );
 		$obj->run();
 
@@ -171,7 +173,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 		$obj->run();
 
 		$this->test_counter = 0;
-		$new_val = apply_filters( 'my_test_hook', 999 );
+		$new_val            = apply_filters( 'my_test_hook', 999 );
 		$this->assertEquals( 10, $this->test_counter );
 		$this->assertEquals( 10, $new_val );
 		$this->test_counter = 0;
