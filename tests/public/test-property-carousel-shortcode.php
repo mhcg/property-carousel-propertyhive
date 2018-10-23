@@ -22,7 +22,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * Output should start and end with div tags and have some reference to flexslider in the output.
 	 *
-	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode
+	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 */
 	public function test_property_carousel_shortcode() {
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output( array() );
