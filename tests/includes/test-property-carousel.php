@@ -5,7 +5,7 @@
  * @since 1.0.0
  */
 
-class Tests_Property_Carousel extends WP_UnitTestCase {
+class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 
 	/**
 	 * @covers Property_Carousel::__construct
