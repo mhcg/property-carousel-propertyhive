@@ -19,7 +19,7 @@
  * @subpackage Propertyhive_Property_Carousel/public
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
-class Propertyhive_Property_Carousel_Public {
+class Property_Carousel_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -77,7 +77,7 @@ class Propertyhive_Property_Carousel_Public {
 
 		wp_register_style(
 			$this->propertyhive_property_carousel,
-			plugin_dir_url( __FILE__ ) . 'css/propertyhive-property-carousel-public.css',
+			plugin_dir_url( __FILE__ ) . 'css/property-carousel-public.css',
 			$this->get_flexslider_css_handle(),
 			$this->version,
 			'all'
@@ -94,7 +94,7 @@ class Propertyhive_Property_Carousel_Public {
 
 		wp_register_script(
 			$this->propertyhive_property_carousel,
-			plugin_dir_url( __FILE__ ) . 'js/propertyhive-property-carousel-public.js',
+			plugin_dir_url( __FILE__ ) . 'js/property-carousel-public.js',
 			array( 'jquery', $this->get_flexslider_js_handle() ),
 			$this->version,
 			false
@@ -110,7 +110,7 @@ class Propertyhive_Property_Carousel_Public {
 	public function register_shortcodes() {
 
 		add_shortcode(
-			Propertyhive_Property_Carousel_Shortcode::SHORTCODE,
+			Property_Carousel_Shortcode::SHORTCODE,
 			array( $this, 'property_carousel_shortcode' )
 		);
 
@@ -121,11 +121,11 @@ class Propertyhive_Property_Carousel_Public {
 	 *
 	 * Outputs a FlexSlider for the specified attributes.
 	 *
-	 * @see  Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode()
+	 * @see  Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
 	 * @since 1.0.0
-	 * @uses Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available()
-	 * @uses Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode()
+	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
+	 * @uses Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
 	 * @param array $attributes The shortcode attributes
 	 *
@@ -134,7 +134,7 @@ class Propertyhive_Property_Carousel_Public {
 	public function property_carousel_shortcode( $attributes ) {
 
 		// Output nothing if Property Hive plugin isn't also active
-		if ( ! Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available() ) {
+		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
 			return '';
 		}
 
@@ -145,7 +145,7 @@ class Propertyhive_Property_Carousel_Public {
 		wp_enqueue_script( $this->get_flexslider_js_handle() );
 		wp_enqueue_script( $this->propertyhive_property_carousel );
 
-		return Propertyhive_Property_Carousel_Shortcode::property_carousel_shortcode( $attributes );
+		return Property_Carousel_Shortcode::property_carousel_shortcode_output( $attributes );
 
 	}
 
@@ -200,10 +200,10 @@ class Propertyhive_Property_Carousel_Public {
 		 * @see propertyhive_template_loop_summary()
 		 * @see propertyhive_template_loop_price()
 		 */
-		add_action( 'propertyhive_property_carousel_loop_thumbnail', 'propertyhive_template_loop_property_thumbnail', 10 );
+		add_action( 'property_carousel_loop_thumbnail', 'propertyhive_template_loop_property_thumbnail', 10 );
 
-		add_action( 'propertyhive_property_carousel_loop_after_title', 'propertyhive_template_loop_summary', 30 );
-		add_action( 'propertyhive_property_carousel_loop_after_title', 'propertyhive_template_loop_price', 50 );
+		add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_summary', 30 );
+		add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_price', 50 );
 	}
 
 	/**

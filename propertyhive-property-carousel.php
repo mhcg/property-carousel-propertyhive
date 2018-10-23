@@ -45,27 +45,27 @@ define( 'PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION', '1.0.0' );
 /**
  * The code that runs during plugin activation.
  */
-function activate_propertyhive_property_carousel() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-propertyhive-property-carousel-activator.php';
-	Propertyhive_Property_Carousel_Activator::activate();
+function activate_property_carousel() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel-activator.php';
+	Property_Carousel_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_propertyhive_property_carousel() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-propertyhive-property-carousel-deactivator.php';
-	Propertyhive_Property_Carousel_Deactivator::deactivate();
+function deactivate_property_carousel() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel-deactivator.php';
+	Property_Carousel_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_propertyhive_property_carousel' );
-register_deactivation_hook( __FILE__, 'deactivate_propertyhive_property_carousel' );
+register_activation_hook( __FILE__, 'activate_property_carousel' );
+register_deactivation_hook( __FILE__, 'deactivate_property_carousel' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-propertyhive-property-carousel.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel.php';
 
 /**
  * Begins execution of the plugin.
@@ -78,7 +78,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-propertyhive-property-caro
  */
 function run_propertyhive_property_carousel() {
 
-	$plugin = new Propertyhive_Property_Carousel();
+	$plugin = new Property_Carousel();
 	$plugin->run();
 
 }

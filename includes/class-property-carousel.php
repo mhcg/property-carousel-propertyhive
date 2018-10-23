@@ -27,7 +27,7 @@
  * @subpackage Propertyhive_Property_Carousel/includes
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
-class Propertyhive_Property_Carousel {
+class Property_Carousel {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Propertyhive_Property_Carousel {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Propertyhive_Property_Carousel_Loader $loader Maintains and registers all hooks for the plugin.
+	 * @var      Property_Carousel_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -103,31 +103,31 @@ class Propertyhive_Property_Carousel {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-propertyhive-property-carousel-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-property-carousel-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-propertyhive-property-carousel-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-property-carousel-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-propertyhive-property-carousel-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-property-carousel-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-propertyhive-property-carousel-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-property-carousel-public.php';
 
 		/**
 		 * The class responsible for the [property_carousel] shortcode
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-propertyhive-property-carousel-shortcode.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-property-carousel-shortcode.php';
 
-		$this->loader = new Propertyhive_Property_Carousel_Loader();
+		$this->loader = new Property_Carousel_Loader();
 
 	}
 
@@ -142,7 +142,7 @@ class Propertyhive_Property_Carousel {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Propertyhive_Property_Carousel_i18n();
+		$plugin_i18n = new Property_Carousel_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -157,7 +157,7 @@ class Propertyhive_Property_Carousel {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Propertyhive_Property_Carousel_Admin( $this->get_propertyhive_property_carousel(), $this->get_version() );
+		$plugin_admin = new Property_Carousel_Admin( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'add_admin_notices' );
 
@@ -172,7 +172,7 @@ class Propertyhive_Property_Carousel {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Propertyhive_Property_Carousel_Public( $this->get_propertyhive_property_carousel(), $this->get_version() );
+		$plugin_public = new Property_Carousel_Public( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -205,7 +205,7 @@ class Propertyhive_Property_Carousel {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Propertyhive_Property_Carousel_Loader    Orchestrates the hooks of the plugin.
+	 * @return    Property_Carousel_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

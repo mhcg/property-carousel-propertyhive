@@ -23,7 +23,7 @@
  *
  * @codeCoverageIgnore Boilerplate Code - should have their own unit tests really
  */
-class Propertyhive_Property_Carousel_Loader {
+class Property_Carousel_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

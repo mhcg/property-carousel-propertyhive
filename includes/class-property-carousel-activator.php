@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fired during plugin deactivation
+ * Fired during plugin activation
  *
  * @link       https://github.com/mhcg/propertyhive-property-carousel
  * @since      1.0.0
@@ -11,9 +11,9 @@
  */
 
 /**
- * Fired during plugin deactivation.
+ * Fired during plugin activation.
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
  * @package    Propertyhive_Property_Carousel
@@ -22,7 +22,7 @@
  *
  * @codeCoverageIgnore Boilerplate Code - should have their own unit tests really
  */
-class Propertyhive_Property_Carousel_Deactivator {
+class Property_Carousel_Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -31,7 +31,7 @@ class Propertyhive_Property_Carousel_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function activate() {
 
 	}
 

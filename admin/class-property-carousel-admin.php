@@ -20,7 +20,7 @@
  * @subpackage Propertyhive_Property_Carousel/admin
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
-class Propertyhive_Property_Carousel_Admin {
+class Property_Carousel_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -60,14 +60,14 @@ class Propertyhive_Property_Carousel_Admin {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @uses Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available()
+	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
 	 */
 	public function add_admin_notices() {
-		if ( ! Propertyhive_Property_Carousel_Shortcode::is_propertyhive_available() ) {
+		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
 			add_action( 'admin_notices', function () {
 				?>
                 <div class="error notice">
-                    <p><?php Propertyhive_Property_Carousel_i18n::_e(
+                    <p><?php Property_Carousel_i18n::_e(
 							'Property Carousel requires the Property Hive plugin.'
 						); ?></p>
                 </div>

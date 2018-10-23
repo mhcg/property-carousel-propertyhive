@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The template for displaying a single property within property carousel.
+ * The template for displaying a single property within the property carousel.
  *
  * @link       https://github.com/mhcg/propertyhive-property-carousel
  * @since      1.0.0
@@ -24,7 +24,7 @@ if ( ! $property ) {
 
 // Extra post classes
 $classes   = array( 'clear' );
-$classes[] = 'propertyhive-property-carousel-property';
+$classes[] = 'property-carousel-property';
 if ( $property->featured == 'yes' ) {
 	$classes[] = 'featured';
 }
@@ -32,17 +32,25 @@ if ( $property->featured == 'yes' ) {
 
 <li <?php post_class( $classes ); ?>>
 
-	<?php do_action( 'propertyhive_before_carousel_loop_item' ); ?>
+	<?php
+	/**
+	 * Called before each loop item, within the <li> tag.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'property_carousel_before_loop_item' );
+	?>
 
     <div class="thumbnail">
         <a href="<?php the_permalink(); ?>">
 			<?php
 			/**
-			 * propertyhive_property_carouself_loop_thumbnail hook
+			 * Called to output a thumbnail within the <a> tag.
 			 *
+			 * @since 1.0.0
 			 * @hooked propertyhive_template_loop_property_thumbnail - 10
 			 */
-			do_action( 'propertyhive_property_carousel_loop_thumbnail' );
+			do_action( 'property_carousel_loop_thumbnail' );
 			?>
         </a>
     </div>
@@ -53,17 +61,25 @@ if ( $property->featured == 'yes' ) {
 
 		<?php
 		/**
-		 * propertyhive_property_carousel_loop_after_title hook
+		 * Called after the title link, ideally to provide further details.
 		 *
+		 * @since 1.0.0
 		 * @hooked propertyhive_template_loop_summary - 30
 		 * @hooked propertyhive_template_loop_price - 50
 		 */
-		do_action( 'propertyhive_property_carousel_loop_after_title' );
+		do_action( 'property_carousel_loop_after_title' );
 		?>
 
     </div>
 
-	<?php do_action( 'propertyhive_property_carousel_loop_after_details' ); ?>
+	<?php
+	/**
+	 * Called after each look item, still within the <li> tag.
+	 *
+	 * @since 1.0.0
+	 */
+	do_action( 'property_carousel_loop_after_details' );
+	?>
 
 </li>
 

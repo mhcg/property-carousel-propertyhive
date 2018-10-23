@@ -26,9 +26,9 @@
  *
  * @codeCoverageIgnore Boilerplate Code - should have their own unit tests really
  */
-class Propertyhive_Property_Carousel_i18n {
+class Property_Carousel_i18n {
 
-	const TEXT_DOMAIN = 'propertyhive-property-carousel';
+	const TEXT_DOMAIN = 'property-carousel';
 
 	/**
 	 * Load the plugin text domain for translation.

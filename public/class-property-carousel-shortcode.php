@@ -18,7 +18,7 @@
  * @subpackage Propertyhive_Property_Carousel/public
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
-class Propertyhive_Property_Carousel_Shortcode {
+class Property_Carousel_Shortcode {
 
 	/** @var string The shortcode */
 	const SHORTCODE = 'property_carousel';
@@ -54,7 +54,19 @@ class Propertyhive_Property_Carousel_Shortcode {
 	 *
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
-	public static function property_carousel_shortcode( $attributes = [] ) {
+	public static function property_carousel_shortcode_output( $attributes = [] ) {
+		$extract = shortcode_atts(
+			array(
+				'featured'   => 'true',
+				'department' => '',
+				'office_id'  => '',
+				'orderby'    => 'rand',
+				'order'      => 'desc',
+				'meta_key'   => '',
+			),
+			$attributes,
+			self::SHORTCODE
+		);
 		/**
 		 * @var string $featured Featured properties or not (true or false)
 		 * @var string $department Property Hive department to filter on
@@ -62,34 +74,23 @@ class Propertyhive_Property_Carousel_Shortcode {
 		 * @var string $orderby Usual 'orderby' (for WP_Query)
 		 * @var string $order ASC or DESC (for WP_Query)
 		 * @var string $meta_key Optional used sorting by meta_value (for WP_Query)
+		 * @var array $post_status Post statuses to filter on, includes private if applicable
 		 */
-		extract(
-			shortcode_atts(
-				array(
-					'featured'   => 'true',
-					'department' => '',
-					'office_id'  => '',
-					'orderby'    => 'rand',
-					'order'      => 'desc',
-					'meta_key'   => '',
-				),
-				$attributes,
-				self::SHORTCODE
-			)
-		);
+		$featured   = $extract['featured'];
+		$department = $extract['department'];
+		$office_id  = $extract['office_id'];
+		$orderby    = $extract['orderby'];
+		$order      = $extract['order'];
+		$meta_key   = $extract['meta_key'];
 
 		$post_status = array( 'publish' );
 		if ( is_user_logged_in() && current_user_can( 'manage_propertyhive' ) ) {
 			$post_status[] = 'private';
 		}
-		$args = array(
-			'post_type'           => 'property',
-			'post_status'         => $post_status,
-			'ignore_sticky_posts' => 1,
-			'orderby'             => $orderby,
-			'order'               => $order,
-		);
 
+		/**
+		 * Build and run the WP_Query stuff
+		 */
 		$meta_query = array(
 			array(
 				'key'   => '_on_market',
@@ -100,38 +101,50 @@ class Propertyhive_Property_Carousel_Shortcode {
 				'value' => ( $featured == 'true' ? 'yes' : 'no' ),
 			)
 		);
-
-		if ( isset( $department ) && $department != '' ) {
+		if ( ! empty( $department ) ) {
 			$meta_query[] = array(
 				'key'     => '_department',
 				'value'   => $department,
 				'compare' => '='
 			);
 		}
-
-		if ( isset( $office_id ) && $office_id != '' ) {
+		if ( ! empty( $office_id ) ) {
 			$meta_query[] = array(
 				'key'     => '_office_id',
 				'value'   => explode( ",", $office_id ),
 				'compare' => 'IN'
 			);
 		}
-
-		$args['meta_query'] = $meta_query;
-
-		if ( ! empty( $meta_key ) ) {
-			$args['meta_key'] = $meta_key;
-		}
-
-		ob_start();
-
-		$properties = new WP_Query(
-			apply_filters( 'propertyhive_shortcode_property_carousel_query', $args, $attributes )
+		$args = array(
+			'post_type'           => 'property',
+			'post_status'         => $post_status,
+			'ignore_sticky_posts' => 1,
+			'orderby'             => $orderby,
+			'order'               => $order,
+			'meta_query'          => $meta_query,
+			'meta_key'            => $meta_key
 		);
+
+		/**
+		 * Hook into the shortcode WP_Query call.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args WP_Query query.
+		 * @param array $attributes Shortcode attributes.
+		 */
+		$properties = new WP_Query(
+			apply_filters( 'property_carousel_shortcode_query', $args, $attributes )
+		);
+
+		/**
+		 * Shortcode output
+		 */
+		ob_start();
 
 		if ( $properties->have_posts() ) : ?>
 
-            <ul class="properties clear slides">
+            <ul class="propertyhive-property-carousel properties clear slides">
 
 				<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
 
@@ -145,7 +158,7 @@ class Propertyhive_Property_Carousel_Shortcode {
 
 		wp_reset_postdata();
 
-		return '<div class="propertyhive propertyhive-property-carousel-shortcode flexslider">' . ob_get_clean() . '</div>';
+		return '<div class="propertyhive-property-carousel-shortcode flexslider">' . ob_get_clean() . '</div>';
 	}
 
 	/**
@@ -159,14 +172,21 @@ class Propertyhive_Property_Carousel_Shortcode {
 	 */
 	public static function property_carousel_loop_template() {
 		$template = locate_template(
-			'property-carousel/propertyhive-property-carousel.php',
+			'property-carousel/property-carousel.php',
 			false
 		);
 
 		if ( empty( $template ) ) {
-			$template = plugin_dir_path( __FILE__ ) . 'partials/propertyhive-property-carousel.php';
+			$template = plugin_dir_path( __FILE__ ) . 'partials/property-carousel.php';
 		}
 
+		/**
+		 * Property carousel loop item template hook.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $template The full path of the template file being returned.
+		 */
 		return apply_filters( 'property_carousel_loop_template', $template );
 	}
 }
