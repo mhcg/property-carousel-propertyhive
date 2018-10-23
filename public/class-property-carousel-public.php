@@ -131,10 +131,11 @@ class Property_Carousel_Public {
 	 *
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
-	public function property_carousel_shortcode( $attributes ) {
+	public function property_carousel_shortcode( $attributes, bool $pretend_installed = false ) {
 
 		// Output nothing if Property Hive plugin isn't also active
-		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
+		if ( false == Property_Carousel_Shortcode::is_propertyhive_available() &&
+		     false == $pretend_installed ) {
 			return '';
 		}
 
@@ -149,41 +150,6 @@ class Property_Carousel_Public {
 
 	}
 
-	/**
-	 * Returns the JS handler string.
-	 *
-	 * Works out which JS file to use for the FlexSlider.  Some themes and the Property Hive plugin
-	 * come with their own versions so need to use one only.  Will use the Property Hive one if available,
-	 * otherwise will include the version supplied with this plugin.
-	 *
-	 * @return string String to use for the JS handler when registering and enqueuing.
-	 */
-	protected function get_flexslider_js_handle() {
-
-		if ( ! empty( $this->flexslider_js_handle ) ) {
-			return $this->flexslider_js_handle;
-		}
-
-		// check the list of registered styles looking for an existing one to use
-		foreach ( array( 'flexslider', 'jquery-flexslider' ) as $handle ) {
-			if ( wp_style_is( $handle ) ) {
-				return $handle;
-			}
-		}
-
-		// otherwise, use ours
-		$this->flexslider_js_handle = 'jquery-flexslider';
-		wp_register_script(
-			$this->flexslider_js_handle,
-			plugin_dir_url( __FILE__ ) . 'js/jquery.flexslider.js',
-			array( 'jquery' ),
-			'2.2.2',
-			false
-		);
-
-		return $this->flexslider_js_handle;
-
-	}
 
 	/**
 	 * Register default template hooks.
@@ -239,6 +205,42 @@ class Property_Carousel_Public {
 		);
 
 		return $this->flexslider_css_handle;
+
+	}
+
+	/**
+	 * Returns the JS handler string.
+	 *
+	 * Works out which JS file to use for the FlexSlider.  Some themes and the Property Hive plugin
+	 * come with their own versions so need to use one only.  Will use the Property Hive one if available,
+	 * otherwise will include the version supplied with this plugin.
+	 *
+	 * @return string String to use for the JS handler when registering and enqueuing.
+	 */
+	protected function get_flexslider_js_handle() {
+
+		if ( ! empty( $this->flexslider_js_handle ) ) {
+			return $this->flexslider_js_handle;
+		}
+
+		// check the list of registered styles looking for an existing one to use
+		foreach ( array( 'flexslider', 'jquery-flexslider' ) as $handle ) {
+			if ( wp_style_is( $handle ) ) {
+				return $handle;
+			}
+		}
+
+		// otherwise, use ours
+		$this->flexslider_js_handle = 'jquery-flexslider';
+		wp_register_script(
+			$this->flexslider_js_handle,
+			plugin_dir_url( __FILE__ ) . 'js/jquery.flexslider.js',
+			array( 'jquery' ),
+			'2.2.2',
+			false
+		);
+
+		return $this->flexslider_js_handle;
 
 	}
 
