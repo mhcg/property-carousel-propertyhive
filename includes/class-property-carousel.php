@@ -65,12 +65,17 @@ class Property_Carousel {
 	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param string $version Default version to use if no define set already.
 	 */
-	public function __construct() {
-		if ( defined( 'PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION' ) ) {
+	public function __construct( $version = '1.0.0', $override_define = false ) {
+		if (
+			defined( 'PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION' ) &&
+			false == $override_define
+		) {
 			$this->version = PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = $version;
 		}
 		$this->propertyhive_property_carousel = 'propertyhive-property-carousel';
 

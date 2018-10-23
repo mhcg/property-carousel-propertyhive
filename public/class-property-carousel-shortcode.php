@@ -28,6 +28,8 @@ class Property_Carousel_Shortcode {
 	 *
 	 * @since 1.0.0
 	 *
+	 * @todo Probably a better way of detecting if Property Hive active than this.
+	 *
 	 * @return bool True is Property Hive plugin is active otherwise false
 	 */
 	public static function is_propertyhive_available() {
