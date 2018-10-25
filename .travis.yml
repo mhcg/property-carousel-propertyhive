@@ -56,6 +56,8 @@ before_script:
     fi
 
 script:
+  - mkdir -p build/logs
+  - "phpunit --coverage-clover build/logs/clover.xml"
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       phpunit
@@ -65,3 +67,6 @@ script:
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       phpcs
     fi
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls
