@@ -1,0 +1,23 @@
+{
+    "name": "mhcg/propertyhive-property-carousel",
+    "description": "Property Hive extension to add a carousel feature.",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "MHCG LTD",
+            "email": "contact@mhcg.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "require-dev": {
+        "php-coveralls/php-coveralls": "^2.1"
+    },
+    "support": {
+      "issues": "https://github.com/mhcg/propertyhive-property-carousel/issues",
+      "wiki": "https://github.com/mhcg/propertyhive-property-carousel/wiki",
+      "source": "https://github.com/mhcg/propertyhive-property-carousel"
+    }
+}
