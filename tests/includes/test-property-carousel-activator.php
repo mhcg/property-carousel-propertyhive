@@ -2,10 +2,15 @@
 /**
  * Activator tests.
  *
- * @covers Property_Carousel_Activator
  * @since 1.0.0
+ * @covers Property_Carousel_Activator
+ * @package Tests
+ * @subpackage Tests/Includes
  */
 
+/**
+ * Activator tests.
+ */
 class Tests_Includes_Property_Carousel_Activator extends WP_UnitTestCase {
 
 	/**
@@ -14,8 +19,8 @@ class Tests_Includes_Property_Carousel_Activator extends WP_UnitTestCase {
 	 * @covers Property_Carousel_Activator::activate
 	 */
 	public function test_activate() {
-		activate_property_carousel();
-		// doesn't crash
+		propertyhive_property_carousel_activate();
+		// shouldn't crash.
 		$this->assertTrue( true );
 	}
 }

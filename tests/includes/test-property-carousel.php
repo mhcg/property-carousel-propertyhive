@@ -1,13 +1,21 @@
 <?php
 /**
- * @covers Property_Carousel
+ * Property_Carousel tests.
  *
  * @since 1.0.0
+ * @covers Property_Carousel
+ * @package Tests
+ * @subpackage Tests/Includes
  */
 
+/**
+ * Property_Carousel tests.
+ */
 class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 
 	/**
+	 * Tests the constructor.
+	 *
 	 * @covers Property_Carousel::__construct
 	 */
 	public function test_constructor() {
@@ -16,6 +24,8 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests get_propertyhive_property_carousel().
+	 *
 	 * @covers Property_Carousel::get_propertyhive_property_carousel
 	 */
 	public function test_get_propertyhive_property_carousel() {
@@ -24,6 +34,8 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests get_version() returns using a default value.
+	 *
 	 * @covers Property_Carousel::get_version
 	 */
 	public function test_get_version_default() {
@@ -32,14 +44,18 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests get_version() returns a specifically passed in version number.
+	 *
 	 * @covers Property_Carousel::get_version
 	 */
-	public function test_get_version_specifc() {
-		$obj = new Property_Carousel( '1.2.3', true );
+	public function test_get_version_specific() {
+		$obj = new Property_Carousel( '1.2.3' );
 		$this->assertSame( '1.2.3', $obj->get_version() );
 	}
 
 	/**
+	 * Tests get_loader.
+	 *
 	 * @covers Property_Carousel::get_loader
 	 */
 	public function test_get_loader() {
@@ -48,11 +64,13 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests the Property_Carousel run() method runs without error.
+	 *
 	 * @covers Property_Carousel::run
 	 */
 	public function test_run() {
 		$obj = new Property_Carousel();
-		// currently just runs the Loader::run() so just check no errors I guess
+		// currently just runs the Loader::run() so just check no errors I guess.
 		$obj->run();
 		$this->assertTrue( true );
 	}

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -21,6 +20,17 @@
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Deactivator {
+	/**
+	 * Helper class constructor.
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Helper class clone.
+	 */
+	private function __clone() {
+	}
 
 	/**
 	 * Short Description. (use period)
@@ -30,7 +40,5 @@ class Property_Carousel_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
 	}
-
 }

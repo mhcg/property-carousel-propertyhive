@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -68,22 +67,14 @@ class Property_Carousel {
 	 *
 	 * @param string $version Default version to use if no define set already.
 	 */
-	public function __construct( $version = '1.0.0', $override_define = false ) {
-		if (
-			defined( 'PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION' ) &&
-			false == $override_define
-		) {
-			$this->version = PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION;
-		} else {
-			$this->version = $version;
-		}
+	public function __construct( $version = '1.0.0' ) {
+		$this->version                        = $version;
 		$this->propertyhive_property_carousel = 'propertyhive-property-carousel';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -103,7 +94,6 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -133,7 +123,6 @@ class Property_Carousel {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-property-carousel-shortcode.php';
 
 		$this->loader = new Property_Carousel_Loader();
-
 	}
 
 	/**
@@ -146,11 +135,11 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function set_locale() {
-
-		$plugin_i18n = new Property_Carousel_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		$this->loader->add_action(
+			'plugins_loaded',
+			'Property_Carousel_I18n',
+			'load_plugin_textdomain'
+		);
 	}
 
 	/**
@@ -161,11 +150,9 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
 		$plugin_admin = new Property_Carousel_Admin( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'add_admin_notices' );
-
 	}
 
 	/**
@@ -176,7 +163,6 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-
 		$plugin_public = new Property_Carousel_Public( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );

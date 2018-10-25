@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin activation
  *
@@ -21,16 +20,26 @@
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Activator {
+	/**
+	 * Helper class constructor.
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Helper class clone.
+	 */
+	private function __clone() {
+	}
 
 	/**
 	 * Short Description. (use period)
 	 *
 	 * Long Description.
-
-	 * @since    1.0.0
+	 *
+	 * @since 1.0.0
 	 */
 	public static function activate() {
-
 	}
 
 }

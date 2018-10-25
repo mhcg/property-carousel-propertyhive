@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -26,34 +25,44 @@
  *
  * @codeCoverageIgnore Boilerplate Code - should have their own unit tests really
  */
-class Property_Carousel_i18n {
+class Property_Carousel_I18n {
 
 	const TEXT_DOMAIN = 'property-carousel';
+
+	/**
+	 * Helper class constructor.
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Helper class clone.
+	 */
+	private function __clone() {
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
-
+	public static function load_plugin_textdomain() {
 		load_plugin_textdomain(
 			self::TEXT_DOMAIN,
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
 
 	/**
-	 * Display translated text for this text domain.
+	 * Display translated text that has been escaped for safe use in HTML output.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string $text Text to translate.
+	 * @param string $text   Text to translate.
 	 */
-	public static function _e( $text ) {
-		_e( $text, self::TEXT_DOMAIN );
+	public static function esc_html_e( $text ) {
+		esc_html_e( $text, self::TEXT_DOMAIN );
 	}
 
 	/**

@@ -20,7 +20,19 @@
  */
 class Property_Carousel_Shortcode {
 
-	/** @var string The shortcode */
+	/**
+	 * Helper class constructor.
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Helper class clone.
+	 */
+	private function __clone() {
+	}
+
+	/** The shortcode. */
 	const SHORTCODE = 'property_carousel';
 
 	/**
@@ -33,7 +45,19 @@ class Property_Carousel_Shortcode {
 	 * @return bool True is Property Hive plugin is active otherwise false
 	 */
 	public static function is_propertyhive_available() {
-		return defined( 'PH_VERSION' );
+		/**
+		 * Allows overriding of the availability checking of is_propertyhive_available().
+		 *
+		 * Mainly used for unit tests as the plugin is not generally available when testing.
+		 *
+		 * @since 1.0.0
+		 */
+		$ph_available = apply_filters(
+			'property_carousel_is_propertyhive_available',
+			defined( 'PH_VERSION' )
+		);
+
+		return $ph_available;
 	}
 
 	/**
@@ -46,93 +70,15 @@ class Property_Carousel_Shortcode {
 	 * - featured - Featured properties or not ('true' or 'false'). Default is 'true'.
 	 * - department - Property Hive department to filter on
 	 * - office_id - Branch to filter on
-	 * - orderby - Usual 'orderby' (for WP_Query)
-	 * - order - ASC or DESC (for WP_Query)
-	 * - meta_key - Sorting by meta_value (for WP_Query)
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array $attributes The shortcode attributes
+	 * @param array $attributes The shortcode attributes.
 	 *
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
 	public static function property_carousel_shortcode_output( $attributes = [] ) {
-		$extract = shortcode_atts(
-			array(
-				'featured'   => '',
-				'department' => '',
-				'office_id'  => ''
-			),
-			$attributes,
-			self::SHORTCODE
-		);
-		/**
-		 * @var string $featured Show only featured properties or not (true or false), leave blank for properties.
-		 * @var string $department Property Hive department to filter on
-		 * @var string $office_id Branch to filter on
-		 */
-		$featured   = $extract['featured'];
-		$department = $extract['department'];
-		$office_id  = $extract['office_id'];
-
-		/**
-		 * Build and run the WP_Query stuff
-		 */
-		$meta_query = array(
-			array(
-				'key'   => '_on_market',
-				'value' => 'yes',
-			)
-		);
-		if ( ! empty( $featured ) ) {
-			$only_featured = filter_var( $featured, FILTER_VALIDATE_BOOLEAN );
-			$meta_query[]  = array(
-				'key'   => '_featured',
-				'value' => ( true === $only_featured ? 'yes' : 'no' )
-			);
-		}
-		if ( ! empty( $department ) ) {
-			$all_departments = array(
-				'residential-sales',
-				'residential-lettings',
-				'commercial'
-			);
-			if ( false !== array_search( $department, $all_departments ) ) {
-				$meta_query[] = array(
-					'key'     => '_department',
-					'value'   => $department,
-					'compare' => '='
-				);
-			}
-		}
-		if ( ! empty( $office_id ) ) {
-			$meta_query[] = array(
-				'key'     => '_office_id',
-				'value'   => explode( ",", $office_id ),
-				'compare' => 'IN'
-			);
-		}
-		$args = array(
-			'post_type'           => 'property',
-			'post_status'         => 'publish',
-			'ignore_sticky_posts' => 1,
-			'orderby'             => 'rand',
-			'order'               => 'DESC',
-			'meta_query'          => $meta_query,
-			'posts_per_page'      => 10
-		);
-
-		/**
-		 * Hook into the shortcode WP_Query call.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $args WP_Query query.
-		 * @param array $attributes Shortcode attributes.
-		 */
-		$properties = new WP_Query(
-			apply_filters( 'property_carousel_shortcode_query', $args, $attributes )
-		);
+		$properties = self::query_for_shortcode( $attributes );
 
 		if ( ! $properties->have_posts() ) {
 			return '';
@@ -144,20 +90,23 @@ class Property_Carousel_Shortcode {
 
 		if ( $properties->have_posts() ) : ?>
 
-            <ul class="propertyhive-property-carousel properties clear slides">
+			<ul class="propertyhive-property-carousel properties clear slides">
 
-				<?php while ( $properties->have_posts() ) : $properties->the_post(); ?>
+				<?php while ( $properties->have_posts() ) : ?>
 
-					<?php require self::property_carousel_loop_template(); ?>
+					<?php
+					$properties->the_post();
+					require self::property_carousel_loop_template();
+					?>
 
 				<?php endwhile; // end of the loop. ?>
 
-            </ul>
+			</ul>
 
-		<?php endif;
+		<?php endif; ?>
 
+		<?php
 		wp_reset_postdata();
-
 		return '<div class="propertyhive-property-carousel-shortcode flexslider">' . ob_get_clean() . '</div>';
 	}
 
@@ -188,5 +137,111 @@ class Property_Carousel_Shortcode {
 		 * @param string $template The full path of the template file being returned.
 		 */
 		return apply_filters( 'property_carousel_loop_template', $template );
+	}
+
+	/**
+	 * Returns an array suitable for passing into post_class() for the LI tag.
+	 *
+	 * @param int $post_id The post_id of the property.
+	 * @return array Array suitable for passing into post_class().
+	 */
+	public static function get_property_post_class( $post_id ) {
+		$featured  = get_post_meta( $post_id, '_featured', true ) ?: 'no';
+		$classes   = array( 'clear' );
+		$classes[] = 'property-carousel-property';
+		if ( 'yes' === $featured ) {
+			$classes[] = 'featured';
+		}
+		return $classes;
+	}
+
+	/**
+	 * Build a WP_Query object for the shortcode attributes.
+	 *
+	 * @param array $attributes Shortcode attributes array.
+	 *
+	 * @return WP_Query Build WP_Query object.
+	 */
+	private static function query_for_shortcode( $attributes ) {
+		/**
+		 * Supported attributes.
+		 *
+		 * @var string $featured Show only featured properties or not (true or false), leave blank for properties.
+		 * @var string $department Property Hive department to filter on
+		 * @var string $office_id Branch to filter on
+		 */
+		$extract    = shortcode_atts(
+			array(
+				'featured'   => '',
+				'department' => '',
+				'office_id'  => '',
+			),
+			$attributes,
+			self::SHORTCODE
+		);
+		$featured   = $extract['featured'];
+		$department = $extract['department'];
+		$office_id  = $extract['office_id'];
+
+		/**
+		 * Build and run the WP_Query stuff
+		 */
+		$meta_query = array(
+			array(
+				'key'   => '_on_market',
+				'value' => 'yes',
+			),
+		);
+		if ( ! empty( $featured ) ) {
+			$only_featured = filter_var( $featured, FILTER_VALIDATE_BOOLEAN );
+			$meta_query[]  = array(
+				'key'   => '_featured',
+				'value' => ( true === $only_featured ? 'yes' : 'no' ),
+			);
+		}
+		if ( ! empty( $department ) ) {
+			$all_departments = array(
+				'residential-sales',
+				'residential-lettings',
+				'commercial',
+			);
+			if ( false !== array_search( $department, $all_departments, true ) ) {
+				$meta_query[] = array(
+					'key'     => '_department',
+					'value'   => $department,
+					'compare' => '=',
+				);
+			}
+		}
+		if ( ! empty( $office_id ) ) {
+			$meta_query[] = array(
+				'key'     => '_office_id',
+				'value'   => explode( ',', $office_id ),
+				'compare' => 'IN',
+			);
+		}
+		$args = array(
+			'post_type'           => 'property',
+			'post_status'         => 'publish',
+			'ignore_sticky_posts' => 1,
+			'orderby'             => 'rand',
+			'order'               => 'DESC',
+			'meta_query'          => $meta_query,
+			'posts_per_page'      => 10,
+		);
+
+		/**
+		 * Hook into the shortcode WP_Query call.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args WP_Query query.
+		 * @param array $attributes Shortcode attributes.
+		 */
+		$properties = new WP_Query(
+			apply_filters( 'property_carousel_shortcode_query', $args, $attributes )
+		);
+
+		return $properties;
 	}
 }

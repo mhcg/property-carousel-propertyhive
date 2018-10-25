@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -48,10 +47,8 @@ class Property_Carousel_Public {
 	 * @param      string $version The version of this plugin.
 	 */
 	public function __construct( $propertyhive_property_carousel, $version ) {
-
 		$this->propertyhive_property_carousel = $propertyhive_property_carousel;
 		$this->version                        = $version;
-
 	}
 
 	/**
@@ -60,7 +57,6 @@ class Property_Carousel_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
 		wp_register_style(
 			$this->propertyhive_property_carousel,
 			plugin_dir_url( __FILE__ ) . 'css/property-carousel-public.css',
@@ -68,7 +64,6 @@ class Property_Carousel_Public {
 			$this->version,
 			'all'
 		);
-
 	}
 
 	/**
@@ -77,7 +72,6 @@ class Property_Carousel_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		wp_register_script(
 			$this->propertyhive_property_carousel,
 			plugin_dir_url( __FILE__ ) . 'js/property-carousel-public.js',
@@ -85,7 +79,6 @@ class Property_Carousel_Public {
 			$this->version,
 			false
 		);
-
 	}
 
 	/**
@@ -94,12 +87,10 @@ class Property_Carousel_Public {
 	 * @since 1.0.0
 	 */
 	public function register_shortcodes() {
-
 		add_shortcode(
 			Property_Carousel_Shortcode::SHORTCODE,
 			array( $this, 'property_carousel_shortcode' )
 		);
-
 	}
 
 	/**
@@ -113,19 +104,17 @@ class Property_Carousel_Public {
 	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
 	 * @uses Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
-	 * @param array $attributes The shortcode attributes
+	 * @param array $attributes The shortcode attributes.
 	 *
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
-	public function property_carousel_shortcode( $attributes, bool $pretend_installed = false ) {
-
-		// Output nothing if Property Hive plugin isn't also active
-		if ( false == Property_Carousel_Shortcode::is_propertyhive_available() &&
-		     false == $pretend_installed ) {
+	public function property_carousel_shortcode( $attributes ) {
+		// Output nothing if Property Hive plugin isn't active.
+		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
 			return '';
 		}
 
-		// include the relevant styles and scripts and delegate the output the Shortcode helper
+		// include the relevant styles and scripts and delegate the output the Shortcode helper.
 		wp_enqueue_style( $this->get_flexslider_css_handle() );
 		wp_enqueue_style( $this->propertyhive_property_carousel );
 
@@ -133,9 +122,7 @@ class Property_Carousel_Public {
 		wp_enqueue_script( $this->propertyhive_property_carousel );
 
 		return Property_Carousel_Shortcode::property_carousel_shortcode_output( $attributes );
-
 	}
-
 
 	/**
 	 * Register default template hooks.
@@ -144,8 +131,8 @@ class Property_Carousel_Public {
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_default_template_hooks( bool $pretend_installed = false ) {
-		if ( Property_Carousel_Shortcode::is_propertyhive_available() || $pretend_installed ) {
+	public function register_default_template_hooks() {
+		if ( Property_Carousel_Shortcode::is_propertyhive_available() ) {
 			/**
 			 * Featured Property Carousel Loop Items
 			 *
@@ -170,26 +157,24 @@ class Property_Carousel_Public {
 	 * @return string String to use for the CSS handler when registering and enqueuing.
 	 */
 	protected function get_flexslider_css_handle() {
-
-		// check the list of registered styles looking for an existing one to use
+		// check the list of registered styles looking for an existing one to use.
 		foreach ( array( 'flexslider_css', 'flexslider' ) as $handle ) {
 			if ( wp_style_is( $handle ) ) {
 				return $handle;
 			}
 		}
 
-		// otherwise, use ours
-		$this->flexslider_css_handle = 'flexslider_css';
+		// otherwise, use ours.
+		$flexslider_css_handle = 'flexslider_css';
 		wp_register_style(
-			$this->flexslider_css_handle,
+			$flexslider_css_handle,
 			plugin_dir_url( __FILE__ ) . 'css/flexslider.css',
 			array(),
 			'2.2.2',
 			'all'
 		);
 
-		return $this->flexslider_css_handle;
-
+		return $flexslider_css_handle;
 	}
 
 	/**
@@ -202,26 +187,23 @@ class Property_Carousel_Public {
 	 * @return string String to use for the JS handler when registering and enqueuing.
 	 */
 	protected function get_flexslider_js_handle() {
-
-		// check the list of registered styles looking for an existing one to use
+		// check the list of registered styles looking for an existing one to use.
 		foreach ( array( 'flexslider', 'jquery-flexslider' ) as $handle ) {
 			if ( wp_style_is( $handle ) ) {
 				return $handle;
 			}
 		}
 
-		// otherwise, use ours
-		$this->flexslider_js_handle = 'jquery-flexslider';
+		// otherwise, use ours.
+		$flexslider_js_handle = 'jquery-flexslider';
 		wp_register_script(
-			$this->flexslider_js_handle,
+			$flexslider_js_handle,
 			plugin_dir_url( __FILE__ ) . 'js/jquery.flexslider.js',
 			array( 'jquery' ),
 			'2.2.2',
 			false
 		);
-
-		return $this->flexslider_js_handle;
-
+		return $flexslider_js_handle;
 	}
 
 }

@@ -1,17 +1,27 @@
 <?php
 /**
- * Tests the Shortcode helper class.
+ * Property_Carousel_Shortcode tests.
  *
  * @since 1.0.0
+ * @covers Property_Carousel_Shortcode
+ * @package Tests
+ * @subpackage Tests/Public
  */
 
+/**
+ * Property_Carousel_Shortcode tests.
+ */
 class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 
 	/**
+	 * Array of post_ids for test record posts.
+	 *
 	 * @var array Array of post_ids for test record posts.
 	 */
 	protected static $test_property_ids;
 	/**
+	 * Array of post_ids for the test records marked as featured.
+	 *
 	 * @var array Array of post_ids for the test records marked as featured.
 	 */
 	protected static $test_properties_featured_ids;
@@ -19,10 +29,10 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	/**
 	 * Creates some test property data for use in unit tests.
 	 *
-	 * @param $factory An instance of WP_UnitTest_Factory to use.
+	 * @param WP_UnitTest_Factory $factory An instance of WP_UnitTest_Factory to use.
 	 */
 	public static function wpSetUpBeforeClass( $factory ) {
-		self::create_test_property_posts();
+		self::create_test_property_posts( $factory );
 	}
 
 	/**
@@ -36,35 +46,36 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 
 	/**
 	 * Create some test posts (of type property).
+	 *
+	 * @param WP_UnitTest_Factory $factory An instance of WP_UnitTest_Factory to use.
 	 */
-	protected static function create_test_property_posts() {
-		// currently there is a limit of (at most) 10 records will be returned by the shortcode output code
-		$num_of_tests    = rand( 5, 10 );
+	protected static function create_test_property_posts( $factory ) {
+		// currently there is a limit of (at most) 10 records will be returned by the shortcode output code.
+		$num_of_tests    = wp_rand( 5, 10 );
 		$num_of_featured = (int) $num_of_tests / 2;
 		if ( $num_of_featured < 2 ) {
 			$num_of_featured = 2;
 		}
 		$array_of_post_ids     = array();
 		$array_of_featured_ids = array();
-
 		for ( $i = 0; $i < $num_of_tests; $i ++ ) {
-			$post_id             = self::factory()->post->create(
+			$post_id             = $factory->post->create(
 				array(
-					'post_type' => 'property'
+					'post_type' => 'property',
 				)
 			);
 			$array_of_post_ids[] = $post_id;
 
 			update_post_meta( $post_id, '_on_market', 'yes' );
+			$featured = 'no';
 			if ( $i < $num_of_featured ) {
+				$featured                = 'yes';
 				$array_of_featured_ids[] = $post_id;
-				update_post_meta( $post_id, '_featured', 'yes' );
-			} else {
-				update_post_meta( $post_id, '_featured', 'no' );
 			}
+			update_post_meta( $post_id, '_featured', $featured );
 		}
 
-		// set the class properties for use in tests
+		// set the class properties for use in tests.
 		self::$test_property_ids            = $array_of_post_ids;
 		self::$test_properties_featured_ids = $array_of_featured_ids;
 	}
@@ -72,12 +83,12 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	/**
 	 * Clear template actions hooks.
 	 */
-	protected static function clear_template_hooks(): void {
+	protected static function clear_template_hooks() {
 		$actions_to_clear = array(
 			'property_carousel_before_loop_item',
 			'property_carousel_loop_thumbnail',
 			'property_carousel_loop_after_title',
-			'property_carousel_loop_after_details'
+			'property_carousel_loop_after_details',
 		);
 		foreach ( $actions_to_clear as $tag ) {
 			remove_all_actions( $tag );
@@ -160,7 +171,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	public function test_property_carousel_shortcode_no_data() {
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'office_id' => '-1'
+				'office_id' => '-1',
 			)
 		);
 		$this->assertSame( '', $output );
@@ -177,9 +188,8 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 */
-
 	public function test_property_carousel_shortcode_basic_with_data() {
-		// generate the shortcode output
+		// generate the shortcode output.
 		$output       = Property_Carousel_Shortcode::property_carousel_shortcode_output();
 		$num_of_tests = count( self::$test_property_ids );
 		$this->standard_output_tests( $output, $num_of_tests );
@@ -194,7 +204,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		$num_featured = count( self::$test_properties_featured_ids );
 		$output       = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'featured' => 'yes'
+				'featured' => 'yes',
 			)
 		);
 		$this->standard_output_tests( $output, $num_featured );
@@ -209,7 +219,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		$num_not_featured = count( self::$test_property_ids ) - count( self::$test_properties_featured_ids );
 		$output           = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'featured' => 'no'
+				'featured' => 'no',
 			)
 		);
 		$this->standard_output_tests( $output, $num_not_featured );
@@ -225,7 +235,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		update_post_meta( $post_id, '_department', 'residential-sales' );
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'department' => 'residential-sales'
+				'department' => 'residential-sales',
 			)
 		);
 		$this->standard_output_tests( $output, 1 );
@@ -241,7 +251,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		update_post_meta( $post_id, '_department', 'residential-lettings' );
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'department' => 'residential-lettings'
+				'department' => 'residential-lettings',
 			)
 		);
 		$this->standard_output_tests( $output, 1 );
@@ -252,12 +262,12 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 */
-	public function test_property_carousel_shortcode_department_commerical() {
+	public function test_property_carousel_shortcode_department_commercial() {
 		$post_id = self::$test_property_ids[0];
 		update_post_meta( $post_id, '_department', 'commercial' );
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'department' => 'commercial'
+				'department' => 'commercial',
 			)
 		);
 		$this->standard_output_tests( $output, 1 );
@@ -273,7 +283,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		update_post_meta( $post_id, '_department', 'invalid' );
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'department' => 'invalid'
+				'department' => 'invalid',
 			)
 		);
 		$this->standard_output_tests( $output, count( self::$test_property_ids ) );
@@ -289,51 +299,90 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 		update_post_meta( $post_id, '_office_id', '123' );
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
 			array(
-				'office_id' => '123'
+				'office_id' => '123',
 			)
 		);
 		$this->standard_output_tests( $output, 1 );
 	}
 
-	//<editor-fold desc="Helper Methods">
+	/**
+	 * Tests the get_property_post_class() method returns at least property-carousel-property.
+	 *
+	 * @covers Property_Carousel_Shortcode::get_property_post_class
+	 */
+	public function test_get_property_post_class() {
+		$post_id = self::$test_property_ids[0];
+		$classes = Property_Carousel_Shortcode::get_property_post_class( $post_id );
+		$this->assertContains( 'property-carousel-property', $classes );
+
+		$post_id = self::$test_properties_featured_ids[0];
+		$classes = Property_Carousel_Shortcode::get_property_post_class( $post_id );
+		$this->assertContains( 'property-carousel-property', $classes );
+	}
+
+	/**
+	 * Tests the get_property_post_class() method returns suitable array for a non-featured property.
+	 *
+	 * @covers Property_Carousel_Shortcode::get_property_post_class
+	 */
+	public function test_get_property_post_class_non_featured() {
+		$non_featured = array_diff_assoc( self::$test_property_ids, self::$test_properties_featured_ids );
+		$post_id      = array_values( $non_featured )[0];
+		$classes      = Property_Carousel_Shortcode::get_property_post_class( $post_id );
+		$this->assertNotContains( 'featured', $classes );
+	}
+
+	/**
+	 * Tests the get_property_post_class() method returns suitable array for a featured property.
+	 *
+	 * @covers Property_Carousel_Shortcode::get_property_post_class
+	 */
+	public function test_get_property_post_class_featured() {
+		$post_id = self::$test_properties_featured_ids[0];
+		$classes = Property_Carousel_Shortcode::get_property_post_class( $post_id );
+		$this->assertContains( 'featured', $classes );
+	}
+
+
+	// <editor-fold desc="Helper Methods">
 
 	/**
 	 * Run standard shortcode output tests on the supplied $output.
 	 *
-	 * @param $output Shortcode output to check.
-	 * @param $expected_lis Number of properties that should be in the data, i.e. number of <LI></LI> pairs.
+	 * @param string $output Shortcode output to check.
+	 * @param int    $expected_lis Number of properties that should be in the data, i.e. number of <LI></LI> pairs.
 	 */
-	protected function standard_output_tests( $output, $expected_lis ): void {
-		// looking for <div class="* flexslider *"> - only 1
+	protected function standard_output_tests( $output, $expected_lis ) {
+		// looking for <div class="* flexslider *"> - only 1.
 		$this->assertEquals(
 			1,
 			preg_match_all( '/\<div\sclass=".*flexslider.*">/m', $output )
 		);
-		// looking for <ul *> - only 1
+		// looking for <ul *> - only 1.
 		$this->assertEquals(
 			1,
 			preg_match_all( '/\<ul\s.*>/m', $output )
 		);
-		// looking for <li *> - should be same number as random number of records for testing
+		// looking for <li *> - should be same number as random number of records for testing.
 		$this->assertEquals(
 			$expected_lis,
 			preg_match_all( '/\<li\s.*>/m', $output ),
 			"Should have been {$expected_lis} LIs but found " . preg_match_all( '/\<li\s.*>/m', $output )
 		);
-		// looking for </li> - should be same number as random number of records for testing
+		// looking for </li> - should be same number as random number of records for testing.
 		$this->assertEquals(
 			$expected_lis,
 			preg_match_all( '/\<\/li>/m', $output ),
 			"Should have been {$expected_lis} closing LIs but found " . preg_match_all( '/\<\/li>/m', $output )
 		);
-		// looking for </ul> - only 1
+		// looking for </ul> - only 1.
 		$this->assertEquals(
 			1,
 			preg_match_all( '/\<\/ul>/m', $output )
 		);
-		// looking for final </div> - only 1
+		// looking for final </div> - only 1.
 		$this->assertStringEndsWith( '</div>', $output );
 	}
 
-	//</editor-fold>
+	// </editor-fold>
 }

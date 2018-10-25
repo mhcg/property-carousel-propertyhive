@@ -1,12 +1,21 @@
 <?php
 /**
+ * Property_Carousel_Public tests.
+ *
  * @since 1.0.0
  * @covers Property_Carousel_Public
+ * @package Tests
+ * @subpackage Tests/Public
  */
 
+/**
+ * Property_Carousel_Public tests.
+ */
 class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 
 	/**
+	 * Tests the constructor.
+	 *
 	 * @covers Property_Carousel_Public::__construct
 	 */
 	public function test_constructor() {
@@ -34,6 +43,8 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests the default Property Hive hooks get registered.
+	 *
 	 * @covers Property_Carousel_Public::register_default_template_hooks
 	 */
 	public function test_register_default_template_hooks() {
@@ -43,11 +54,17 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 			'propertyhive_property_carousel',
 			'1.2.3'
 		);
-		$obj->register_default_template_hooks( true );
+
+		// call register_default_template_hooks with override for is_propertyhive_available.
+		add_filter( 'property_carousel_is_propertyhive_available', '__return_true' );
+		$obj->register_default_template_hooks();
 		$this->assertTrue( has_action( 'property_carousel_loop_after_title' ) );
+		remove_all_filters( 'property_carousel_is_propertyhive_available' );
 	}
 
 	/**
+	 * Tests scripts get registered.
+	 *
 	 * @covers Property_Carousel_Public::enqueue_scripts
 	 */
 	public function test_enqueue_scripts() {
@@ -66,6 +83,8 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tests styles get registered.
+	 *
 	 * @covers Property_Carousel_Public::enqueue_styles
 	 */
 	public function test_enqueue_styles() {
@@ -108,7 +127,7 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 		);
 
 		$attributes = array();
-		// deregister anything with flexslider in the CSS or JS registered stuff
+		// de-register anything with flexslider in the CSS or JS registered stuff.
 		foreach ( $this->find_registered_flexslider_css() as $handle ) {
 			wp_deregister_style( $handle );
 		}
@@ -118,26 +137,26 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 		$this->assertCount( 0, $this->find_registered_flexslider_css() );
 		$this->assertCount( 0, $this->find_registered_flexslider_js() );
 
-		// call output which should register them
+		// call property_carousel_shortcode with override for is_propertyhive_available which should register them.
+		add_filter( 'property_carousel_is_propertyhive_available', '__return_true' );
 		$obj->property_carousel_shortcode( $attributes, true );
+		remove_all_filters( 'property_carousel_is_propertyhive_available' );
 
-		// check they were registered
+		// check they were registered.
 		$this->assertCount( 1, $this->find_registered_flexslider_css() );
 		$this->assertCount( 1, $this->find_registered_flexslider_js() );
-
 	}
 
-	//<editor-fold desc="Helper Methods">
-
+	// <editor-fold desc="Helper Methods">
 	/**
 	 * Helper function to find any registered scripts containing 'flexslider' in their handle.
 	 *
 	 * @return array List of handles found containing 'flexslider'
 	 */
 	private function find_registered_flexslider_js() {
-		$regisetered = array_keys( wp_scripts()->registered );
-		$found       = array();
-		foreach ( $regisetered as $item ) {
+		$registered = array_keys( wp_scripts()->registered );
+		$found      = array();
+		foreach ( $registered as $item ) {
 			if ( false !== strpos( $item, 'flexslider' ) ) {
 				$found[] = $item;
 			}
@@ -152,9 +171,9 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	 * @return array List of handles found containing 'flexslider'
 	 */
 	private function find_registered_flexslider_css() {
-		$regisetered = array_keys( wp_styles()->registered );
-		$found       = array();
-		foreach ( $regisetered as $item ) {
+		$registered = array_keys( wp_styles()->registered );
+		$found      = array();
+		foreach ( $registered as $item ) {
 			if ( false !== strpos( $item, 'flexslider' ) ) {
 				$found[] = $item;
 			}
@@ -162,6 +181,5 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 
 		return $found;
 	}
-	//</editor-fold>
-
+	// </editor-fold>
 }

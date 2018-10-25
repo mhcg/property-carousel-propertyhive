@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -49,10 +48,8 @@ class Property_Carousel_Admin {
 	 * @param      string $version The version of this plugin.
 	 */
 	public function __construct( $propertyhive_property_carousel, $version ) {
-
 		$this->propertyhive_property_carousel = $propertyhive_property_carousel;
 		$this->version                        = $version;
-
 	}
 
 	/**
@@ -61,22 +58,18 @@ class Property_Carousel_Admin {
 	 * @since 1.0.0
 	 *
 	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
-     * @param bool $pretend_installed Used to override if Property Hive is available (for testing_
 	 */
-	public function add_admin_notices( bool $pretend_installed = false ) {
-		if (
-			false == Property_Carousel_Shortcode::is_propertyhive_available() &&
-			false == $pretend_installed
-		) {
-			add_action( 'admin_notices', function () {
+	public function add_admin_notices() {
+		if ( ! Property_Carousel_Shortcode::is_propertyhive_available() ) {
+			$ph_not_available_message_func = function() {
+				$ph_not_available_message = 'Property Carousel requires the Property Hive plugin.';
 				?>
-                <div class="error notice">
-                    <p><?php Property_Carousel_i18n::_e(
-							'Property Carousel requires the Property Hive plugin.'
-						); ?></p>
-                </div>
+				<div class="error notice">
+					<p><?php Property_Carousel_I18n::esc_html_e( $ph_not_available_message ); ?></p>
+				</div>
 				<?php
-			} );
+			};
+			add_action( 'admin_notices', $ph_not_available_message_func );
 		}
 	}
 }

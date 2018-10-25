@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template for displaying a single property within the property carousel.
  *
@@ -13,18 +12,12 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly
+} // Exit if accessed directly.
 
-// Extra post classes
-$featured  = get_post_meta( the_ID(), '_featured', true ) ?: 'no';
-$classes   = array( 'clear' );
-$classes[] = 'property-carousel-property';
-if ( $featured === 'yes' ) {
-	$classes[] = 'featured';
-}
+$property_carousel_loop_item_classes = Property_Carousel_Shortcode::get_property_post_class( get_the_ID() );
 ?>
 
-<li <?php post_class( $classes ); ?>>
+<li <?php post_class( $property_carousel_loop_item_classes ); ?>>
 
 	<?php
 	/**
@@ -35,8 +28,8 @@ if ( $featured === 'yes' ) {
 	do_action( 'property_carousel_before_loop_item' );
 	?>
 
-    <div class="thumbnail">
-        <a href="<?php the_permalink(); ?>">
+	<div class="thumbnail">
+		<a href="<?php the_permalink(); ?>">
 			<?php
 			/**
 			 * Called to output a thumbnail within the <a> tag.
@@ -46,12 +39,12 @@ if ( $featured === 'yes' ) {
 			 */
 			do_action( 'property_carousel_loop_thumbnail' );
 			?>
-        </a>
-    </div>
+		</a>
+	</div>
 
-    <div class="details">
+	<div class="details">
 
-        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+		<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 
 		<?php
 		/**
@@ -64,7 +57,7 @@ if ( $featured === 'yes' ) {
 		do_action( 'property_carousel_loop_after_title' );
 		?>
 
-    </div>
+	</div>
 
 	<?php
 	/**

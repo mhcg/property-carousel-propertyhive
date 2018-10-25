@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name:       Property Hive Property Carousel
  * Plugin URI:        https://github.com/mhcg/propertyhive-property-carousel
@@ -24,7 +23,6 @@
  * You should have received a copy of the GNU General Public License along with this plugin. If not,
  * see http://www.gnu.org/licenses/gpl-3.0.txt.
  *
- *
  * @link              https://github.com/mhcg/propertyhive-property-carousel
  * @since             1.0.0
  * @package           Propertyhive_Property_Carousel
@@ -45,7 +43,7 @@ define( 'PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION', '1.0.0' );
 /**
  * The code that runs during plugin activation.
  */
-function activate_property_carousel() {
+function propertyhive_property_carousel_activate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel-activator.php';
 	Property_Carousel_Activator::activate();
 }
@@ -53,13 +51,13 @@ function activate_property_carousel() {
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_property_carousel() {
+function propertyhive_property_carousel_deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel-deactivator.php';
 	Property_Carousel_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_property_carousel' );
-register_deactivation_hook( __FILE__, 'deactivate_property_carousel' );
+register_activation_hook( __FILE__, 'propertyhive_property_carousel_activate' );
+register_deactivation_hook( __FILE__, 'propertyhive_property_carousel_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -76,11 +74,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-property-carousel.php';
  *
  * @since    1.0.0
  */
-function run_propertyhive_property_carousel() {
-
-	$plugin = new Property_Carousel();
+function propertyhive_property_carousel_run() {
+	$plugin = new Property_Carousel( PROPERTYHIVE_PROPERTY_CAROUSEL_VERSION );
 	$plugin->run();
-
 }
 
-run_propertyhive_property_carousel();
+propertyhive_property_carousel_run();
