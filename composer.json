@@ -1,23 +1,37 @@
 {
-    "name": "mhcg/propertyhive-property-carousel",
-    "description": "Property Hive extension to add a carousel feature.",
-    "type": "project",
-    "license": "GPL-3.0-or-later",
-    "authors": [
-        {
-            "name": "MHCG LTD",
-            "email": "contact@mhcg.co.uk"
-        }
-    ],
-    "require": {
-        "php": ">=5.6"
-    },
-    "require-dev": {
-        "php-coveralls/php-coveralls": "^2.1"
-    },
-    "support": {
-      "issues": "https://github.com/mhcg/propertyhive-property-carousel/issues",
-      "wiki": "https://github.com/mhcg/propertyhive-property-carousel/wiki",
-      "source": "https://github.com/mhcg/propertyhive-property-carousel"
+  "name": "mhcg/propertyhive-property-carousel",
+  "description": "Property Hive extension to add a carousel feature.",
+  "type": "project",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "MHCG LTD",
+      "email": "contact@mhcg.co.uk"
     }
+  ],
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.8.*|5.7.*",
+    "php-coveralls/php-coveralls": "^2.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "wp-coding-standards/wpcs": "*",
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "phpcompatibility/phpcompatibility-paragonie": "*"
+  },
+  "scripts": {
+    "install-codestandards": [
+      "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+    ],
+    "post-install-cmd": [
+      "@install-codestandards"
+    ]
+  },
+  "support": {
+    "issues": "https://github.com/mhcg/propertyhive-property-carousel/issues",
+    "wiki": "https://github.com/mhcg/propertyhive-property-carousel/wiki",
+    "source": "https://github.com/mhcg/propertyhive-property-carousel"
+  }
 }
