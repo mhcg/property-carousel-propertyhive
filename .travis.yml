@@ -49,7 +49,6 @@ before_script:
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       composer install --prefer-source --no-interaction --dev
-      phpcs -i
       vendor/bin/phpcs -i
     fi
 
@@ -61,6 +60,6 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+      vendor/bin/phpcs
     fi
 
