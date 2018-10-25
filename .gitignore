@@ -1,0 +1,9 @@
+# not using composer but do use for local dev and testing
+composer.phar
+/vendor/
+composer.json
+composer.lock
+
+/build/
+*.cache
+Project_Default.xml
