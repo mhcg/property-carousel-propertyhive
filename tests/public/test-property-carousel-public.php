@@ -43,7 +43,7 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 			'propertyhive_property_carousel',
 			'1.2.3'
 		);
-		$obj->register_default_template_hooks();
+		$obj->register_default_template_hooks( true );
 		$this->assertTrue( has_action( 'property_carousel_loop_after_title' ) );
 	}
 
@@ -97,7 +97,7 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests that the shortcode method returns something meaningful when Property Hive is installed
+	 * Tests that the shortcode includes the flexslider CSS and JS when installed.
 	 *
 	 * @covers Property_Carousel_Public::property_carousel_shortcode
 	 */
@@ -108,11 +108,60 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 		);
 
 		$attributes = array();
-		// run test a couple of times as this will test the caching of the js and css handle
-		for ( $i = 0; $i < 5; $i ++ ) {
-			$content = $obj->property_carousel_shortcode( $attributes, true );
-			$this->assertStringStartsWith( '<div', $content );
-			$this->assertStringEndsWith( '</div>', $content );
+		// deregister anything with flexslider in the CSS or JS registered stuff
+		foreach ( $this->find_registered_flexslider_css() as $handle ) {
+			wp_deregister_style( $handle );
 		}
+		foreach ( $this->find_registered_flexslider_js() as $handle ) {
+			wp_deregister_script( $handle );
+		}
+		$this->assertCount( 0, $this->find_registered_flexslider_css() );
+		$this->assertCount( 0, $this->find_registered_flexslider_js() );
+
+		// call output which should register them
+		$obj->property_carousel_shortcode( $attributes, true );
+
+		// check they were registered
+		$this->assertCount( 1, $this->find_registered_flexslider_css() );
+		$this->assertCount( 1, $this->find_registered_flexslider_js() );
+
 	}
+
+	//<editor-fold desc="Helper Methods">
+
+	/**
+	 * Helper function to find any registered scripts containing 'flexslider' in their handle.
+	 *
+	 * @return array List of handles found containing 'flexslider'
+	 */
+	private function find_registered_flexslider_js() {
+		$regisetered = array_keys( wp_scripts()->registered );
+		$found       = array();
+		foreach ( $regisetered as $item ) {
+			if ( false !== strpos( $item, 'flexslider' ) ) {
+				$found[] = $item;
+			}
+		}
+
+		return $found;
+	}
+
+	/**
+	 * Helper function to find any registered styles containing 'flexslider' in their handle.
+	 *
+	 * @return array List of handles found containing 'flexslider'
+	 */
+	private function find_registered_flexslider_css() {
+		$regisetered = array_keys( wp_styles()->registered );
+		$found       = array();
+		foreach ( $regisetered as $item ) {
+			if ( false !== strpos( $item, 'flexslider' ) ) {
+				$found[] = $item;
+			}
+		}
+
+		return $found;
+	}
+	//</editor-fold>
+
 }

@@ -15,12 +15,13 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">includes</directory>
-            <exclude>
-                <directory suffix=".php">tests</directory>
-                <file>includes/class-property-carousel-i18N.php</file>
-            </exclude>
             <directory suffix=".php">public</directory>
             <directory suffix=".php">admin</directory>
+            <exclude>
+                <directory suffix=".php">tests</directory>
+                <directory suffix=".php">public/partials</directory>
+                <file>includes/class-property-carousel-i18N.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>

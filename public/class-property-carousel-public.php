@@ -40,20 +40,6 @@ class Property_Carousel_Public {
 	private $version;
 
 	/**
-	 * @since 1.0.0
-	 * @access private
-	 * @var string $flexslider_js_handle The handle used when registering and enqueuing the FlexSlider library.
-	 */
-	private $flexslider_js_handle;
-
-	/**
-	 * @since 1.0.0
-	 * @access private
-	 * @var string $flexslider_css_handle The handle used when registering and enqueuing the FlexSlider CSS.
-	 */
-	private $flexslider_css_handle;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -158,18 +144,20 @@ class Property_Carousel_Public {
 	 *
 	 * @since 1.0.0
 	 */
-	public function register_default_template_hooks() {
-		/**
-		 * Featured Property Carousel Loop Items
-		 *
-		 * @see propertyhive_template_loop_property_thumbnail()
-		 * @see propertyhive_template_loop_summary()
-		 * @see propertyhive_template_loop_price()
-		 */
-		add_action( 'property_carousel_loop_thumbnail', 'propertyhive_template_loop_property_thumbnail', 10 );
+	public function register_default_template_hooks( bool $pretend_installed = false ) {
+		if ( Property_Carousel_Shortcode::is_propertyhive_available() || $pretend_installed ) {
+			/**
+			 * Featured Property Carousel Loop Items
+			 *
+			 * @see propertyhive_template_loop_property_thumbnail()
+			 * @see propertyhive_template_loop_summary()
+			 * @see propertyhive_template_loop_price()
+			 */
+			add_action( 'property_carousel_loop_thumbnail', 'propertyhive_template_loop_property_thumbnail', 10 );
 
-		add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_summary', 30 );
-		add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_price', 50 );
+			add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_summary', 30 );
+			add_action( 'property_carousel_loop_after_title', 'propertyhive_template_loop_price', 50 );
+		}
 	}
 
 	/**
@@ -182,10 +170,6 @@ class Property_Carousel_Public {
 	 * @return string String to use for the CSS handler when registering and enqueuing.
 	 */
 	protected function get_flexslider_css_handle() {
-
-		if ( ! empty( $this->flexslider_css_handle ) ) {
-			return $this->flexslider_css_handle;
-		}
 
 		// check the list of registered styles looking for an existing one to use
 		foreach ( array( 'flexslider_css', 'flexslider' ) as $handle ) {
@@ -218,10 +202,6 @@ class Property_Carousel_Public {
 	 * @return string String to use for the JS handler when registering and enqueuing.
 	 */
 	protected function get_flexslider_js_handle() {
-
-		if ( ! empty( $this->flexslider_js_handle ) ) {
-			return $this->flexslider_js_handle;
-		}
 
 		// check the list of registered styles looking for an existing one to use
 		foreach ( array( 'flexslider', 'jquery-flexslider' ) as $handle ) {

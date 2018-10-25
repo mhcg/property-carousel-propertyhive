@@ -15,17 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-global $property;
-
-// Ensure visibility
-if ( ! $property ) {
-	return;
-}
-
 // Extra post classes
+$featured  = get_post_meta( the_ID(), '_featured', true ) ?: 'no';
 $classes   = array( 'clear' );
 $classes[] = 'property-carousel-property';
-if ( $property->featured == 'yes' ) {
+if ( $featured === 'yes' ) {
 	$classes[] = 'featured';
 }
 ?>

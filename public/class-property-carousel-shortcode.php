@@ -43,7 +43,7 @@ class Property_Carousel_Shortcode {
 	 *
 	 * Supported attributes:
 	 *
-	 * - featured - Featured properties or not (true or false)
+	 * - featured - Featured properties or not ('true' or 'false'). Default is 'true'.
 	 * - department - Property Hive department to filter on
 	 * - office_id - Branch to filter on
 	 * - orderby - Usual 'orderby' (for WP_Query)
@@ -59,36 +59,21 @@ class Property_Carousel_Shortcode {
 	public static function property_carousel_shortcode_output( $attributes = [] ) {
 		$extract = shortcode_atts(
 			array(
-				'featured'   => 'true',
+				'featured'   => '',
 				'department' => '',
-				'office_id'  => '',
-				'orderby'    => 'rand',
-				'order'      => 'desc',
-				'meta_key'   => '',
+				'office_id'  => ''
 			),
 			$attributes,
 			self::SHORTCODE
 		);
 		/**
-		 * @var string $featured Featured properties or not (true or false)
+		 * @var string $featured Show only featured properties or not (true or false), leave blank for properties.
 		 * @var string $department Property Hive department to filter on
 		 * @var string $office_id Branch to filter on
-		 * @var string $orderby Usual 'orderby' (for WP_Query)
-		 * @var string $order ASC or DESC (for WP_Query)
-		 * @var string $meta_key Optional used sorting by meta_value (for WP_Query)
-		 * @var array $post_status Post statuses to filter on, includes private if applicable
 		 */
 		$featured   = $extract['featured'];
 		$department = $extract['department'];
 		$office_id  = $extract['office_id'];
-		$orderby    = $extract['orderby'];
-		$order      = $extract['order'];
-		$meta_key   = $extract['meta_key'];
-
-		$post_status = array( 'publish' );
-		if ( is_user_logged_in() && current_user_can( 'manage_propertyhive' ) ) {
-			$post_status[] = 'private';
-		}
 
 		/**
 		 * Build and run the WP_Query stuff
@@ -97,18 +82,28 @@ class Property_Carousel_Shortcode {
 			array(
 				'key'   => '_on_market',
 				'value' => 'yes',
-			),
-			array(
-				'key'   => '_featured',
-				'value' => ( $featured == 'true' ? 'yes' : 'no' ),
 			)
 		);
-		if ( ! empty( $department ) ) {
-			$meta_query[] = array(
-				'key'     => '_department',
-				'value'   => $department,
-				'compare' => '='
+		if ( ! empty( $featured ) ) {
+			$only_featured = filter_var( $featured, FILTER_VALIDATE_BOOLEAN );
+			$meta_query[]  = array(
+				'key'   => '_featured',
+				'value' => ( true === $only_featured ? 'yes' : 'no' )
 			);
+		}
+		if ( ! empty( $department ) ) {
+			$all_departments = array(
+				'residential-sales',
+				'residential-lettings',
+				'commercial'
+			);
+			if ( false !== array_search( $department, $all_departments ) ) {
+				$meta_query[] = array(
+					'key'     => '_department',
+					'value'   => $department,
+					'compare' => '='
+				);
+			}
 		}
 		if ( ! empty( $office_id ) ) {
 			$meta_query[] = array(
@@ -119,12 +114,12 @@ class Property_Carousel_Shortcode {
 		}
 		$args = array(
 			'post_type'           => 'property',
-			'post_status'         => $post_status,
+			'post_status'         => 'publish',
 			'ignore_sticky_posts' => 1,
-			'orderby'             => $orderby,
-			'order'               => $order,
+			'orderby'             => 'rand',
+			'order'               => 'DESC',
 			'meta_query'          => $meta_query,
-			'meta_key'            => $meta_key
+			'posts_per_page'      => 10
 		);
 
 		/**
@@ -139,6 +134,9 @@ class Property_Carousel_Shortcode {
 			apply_filters( 'property_carousel_shortcode_query', $args, $attributes )
 		);
 
+		if ( ! $properties->have_posts() ) {
+			return '';
+		}
 		/**
 		 * Shortcode output
 		 */
