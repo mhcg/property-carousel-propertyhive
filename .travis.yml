@@ -18,46 +18,20 @@ cache:
 
 matrix:
   include:
-    - php: 7.2
-      env: WP_VERSION=latest
-    - php: 7.2
-      env: WP_VERSION=trunk
-    - php: 7.2
-      env: WP_VERSION=4.2
-    - php: 7.1
-      env: WP_VERSION=latest
-    - php: 7.1
-      env: WP_VERSION=trunk
-    - php: 7.1
-      env: WP_VERSION=4.2
-    - php: 7.0
-      env: WP_VERSION=latest
-    - php: 7.0
-      env: WP_VERSION=trunk
-    - php: 7.0
-      env: WP_VERSION=4.2
-    - php: 5.6
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=trunk
-    - php: 5.6
-      env: WP_VERSION=4.2
-    - php: nightly
-      env: WP_VERSION=latest
-    - php: nightly
-      env: WP_VERSION=trunk
-    - php: nightly
-      env: WP_VERSION=4.2
     - php: 5.6
       env: WP_TRAVISCI=phpcs
+    - php: 7.1
+      env: NON_TEST=coveralls
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
-      phpenv config-rm xdebug.ini
-    else
-      echo "xdebug.ini does not exist"
+    if [[ -z "$NON_TEST" ]] ; then
+      if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+        phpenv config-rm xdebug.ini
+      else
+        echo "xdebug.ini does not exist"
+      fi
     fi
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
@@ -69,6 +43,13 @@ before_script:
       composer install --prefer-source --no-interaction --dev
       vendor/bin/phpcs -i
     fi
+  - |
+    if [[ ! -z "$NON_TEST" ]] ; then
+      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+      composer install --prefer-source --no-interaction --dev
+      mkdir -p build/logs
+    fi
+
 
 script:
   - |
@@ -80,4 +61,13 @@ script:
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
       vendor/bin/phpcs
     fi
+  - |
+    if [[ ! -z "$NON_TEST" ]] ; then
+      vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    fi
 
+after_success:
+  - |
+    if [[ "$NON_TEST" == "coveralls" ]] ; then
+      travis_retry php vendor/bin/php-coveralls
+    fi
