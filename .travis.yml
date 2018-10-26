@@ -1,6 +1,11 @@
 sudo: false
 dist: trusty
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e9f0772688f0d4b483d623b470d6cc86d3131b30cfc22dc2d6a9b0d444ff8f84
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+
 language: php
 
 notifications:
@@ -18,15 +23,13 @@ cache:
 
 matrix:
   include:
-    - php: 5.6
-      env: WP_TRAVISCI=phpcs
     - php: 7.1
-      env: NON_TEST=coveralls
+      env: CODE_COVERAGE=yes
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ -z "$NON_TEST" ]] ; then
+    if [[ -z "$CODE_COVERAGE" ]] ; then
       if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
         phpenv config-rm xdebug.ini
       else
@@ -44,12 +47,14 @@ before_script:
       vendor/bin/phpcs -i
     fi
   - |
-    if [[ ! -z "$NON_TEST" ]] ; then
+    if [[ ! -z "$CODE_COVERAGE" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
       composer install --prefer-source --no-interaction --dev
       mkdir -p build/logs
+      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      chmod +x ./cc-test-reporter
+      ./cc-test-reporter before-build
     fi
-
 
 script:
   - |
@@ -62,12 +67,13 @@ script:
       vendor/bin/phpcs
     fi
   - |
-    if [[ ! -z "$NON_TEST" ]] ; then
+    if [[ "$CODE_COVERAGE" == "yes" ]] ; then
       vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+      if [ -f build/logs/clover.xml ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
     fi
 
 after_success:
   - |
-    if [[ "$NON_TEST" == "coveralls" ]] ; then
+    if [[ "$CODE_COVERAGE" == "yes" ]] ; then
       travis_retry php vendor/bin/php-coveralls
     fi
