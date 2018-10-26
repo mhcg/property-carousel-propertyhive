@@ -1,10 +1,10 @@
-exclude_paths:
+exclude_patterns:
   - "/vendor/*"
   - "/public/css/*"
   - "/public/js/*"
   - "/includes/class-property-carousel-i18n.php"
 
-engines:
+plugins:
   phpcodesniffer:
     enabled: true
     config:
@@ -12,7 +12,3 @@ engines:
       standard: "WordPress"
       ignore_warnings: true
       encoding: utf-8
-
-ratings:
-  paths:
-    - "**.php"
