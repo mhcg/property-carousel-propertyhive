@@ -19,8 +19,15 @@
             <directory suffix=".php">admin</directory>
             <exclude>
                 <directory suffix=".php">tests</directory>
-                <directory suffix=".php">public/partials</directory>
-                <file>includes/class-property-carousel-i18N.php</file>
+                <file>index.php</file>
+                <file>admin/index.php</file>
+                <file>includes/index.php</file>
+                <file>includes/class-property-carousel-i18n.php</file>
+                <file>public/css/fonts/index.php</file>
+                <file>public/css/index.php</file>
+                <file>public/index.php</file>
+                <file>public/js/index.php</file>
+                <file>public/partials/index.php</file>
             </exclude>
         </whitelist>
     </filter>

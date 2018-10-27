@@ -4,3 +4,5 @@ composer.phar
 /build/
 *.cache
 Project_Default.xml
+cc-test-reporter
+

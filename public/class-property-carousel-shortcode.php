@@ -226,7 +226,7 @@ class Property_Carousel_Shortcode {
 			'ignore_sticky_posts' => 1,
 			'orderby'             => 'rand',
 			'order'               => 'DESC',
-			'meta_query'          => $meta_query,
+			'meta_query'          => $meta_query, // @codingStandardsIgnoreLine WordPress.VIP.SlowDBQuery.slow_db_query
 			'posts_per_page'      => 10,
 		);
 
