@@ -1,8 +1,11 @@
+version: 2
+
 exclude_patterns:
-  - "/vendor/*"
-  - "/public/css/*"
-  - "/public/js/*"
-  - "/includes/class-property-carousel-i18n.php"
+  - "tests/"
+  - "**/vendor/"
+  - "public/css/"
+  - "public/js/"
+  - "includes/class-property-carousel-i18n.php"
 
 plugins:
   phpcodesniffer:
