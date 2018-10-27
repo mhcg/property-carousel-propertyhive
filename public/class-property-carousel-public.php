@@ -102,6 +102,8 @@ class Property_Carousel_Public {
 	 *
 	 * @since 1.0.0
 	 * @uses Property_Carousel_Shortcode::is_propertyhive_available()
+	 * @uses Property_Carousel_Shortcode::get_flexslider_css_handle()
+	 * @uses Property_Carousel_Shortcode::get_flexslider_js_handle()
 	 * @uses Property_Carousel_Shortcode::property_carousel_shortcode()
 	 *
 	 * @param array $attributes The shortcode attributes.

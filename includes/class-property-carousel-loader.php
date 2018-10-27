@@ -61,6 +61,8 @@ class Property_Carousel_Loader {
 	 * @param    int    $priority Optional. The priority at which the function should be fired. Default is 10.
 	 * @param    int    $accepted_args Optional. The number of arguments that should be passed to the $callback. Default is 1.
 	 *
+	 * @uses Property_Carousel_Loader::add()
+	 *
 	 * @return array The collection of actions registered with WordPress.
 	 */
 	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
@@ -79,6 +81,8 @@ class Property_Carousel_Loader {
 	 * @param    string $callback The name of the function definition on the $component.
 	 * @param    int    $priority Optional. The priority at which the function should be fired. Default is 10.
 	 * @param    int    $accepted_args Optional. The number of arguments that should be passed to the $callback, default is 1.
+	 *
+	 * @uses Property_Carousel_Loader::add()
 	 *
 	 * @return array The collection of filters registered with WordPress.
 	 */

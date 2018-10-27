@@ -10,6 +10,7 @@
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 
+// @codeCoverageIgnoreStart
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly.
@@ -70,3 +71,4 @@ $property_carousel_loop_item_classes = Property_Carousel_Shortcode::get_property
 
 </li>
 
+// @codeCoverageIgnoreEnd

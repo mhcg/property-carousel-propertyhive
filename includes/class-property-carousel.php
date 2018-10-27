@@ -65,6 +65,11 @@ class Property_Carousel {
 	 *
 	 * @since    1.0.0
 	 *
+	 * @uses Property_Carousel::load_dependencies()
+	 * @uses Property_Carousel::set_locale()
+	 * @uses Property_Carousel::define_admin_hooks()
+	 * @uses Property_Carousel::define_public_hooks()
+	 *
 	 * @param string $version Default version to use if no define set already.
 	 */
 	public function __construct( $version = '1.0.0' ) {
