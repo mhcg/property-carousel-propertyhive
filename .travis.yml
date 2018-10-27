@@ -28,37 +28,37 @@ matrix:
     - php: 7.2
       env: WP_VERSION=trunk
     - php: 7.2
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: 7.1
       env: WP_VERSION=latest
     - php: 7.1
       env: WP_VERSION=trunk
     - php: 7.1
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: 7.0
       env: WP_VERSION=latest
     - php: 7.0
       env: WP_VERSION=trunk
     - php: 7.0
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: 5.6
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=trunk
     - php: 5.6
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: 7.3
       env: WP_VERSION=latest
     - php: 7.3
       env: WP_VERSION=trunk
     - php: 7.3
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: nightly
       env: WP_VERSION=latest
     - php: nightly
       env: WP_VERSION=trunk
     - php: nightly
-      env: WP_VERSION=4.4
+      env: WP_VERSION=4.7
     - php: 7.1
       env: WP_TRAVISCI=phpcs
     - php: 7.1
