@@ -29,6 +29,8 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	/**
 	 * Creates some test property data for use in unit tests.
 	 *
+	 * Note, this could be called by setUp for each test for WordPress < 4.4.0.
+	 *
 	 * @param WP_UnitTest_Factory $factory An instance of WP_UnitTest_Factory to use.
 	 */
 	public static function wpSetUpBeforeClass( $factory ) {
@@ -41,11 +43,20 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		// wpSetUpBeforeClass wasn't added until WordPress 4.4.
+		include ABSPATH . '/wp-includes/version.php';
+		if ( -1 === version_compare( $wp_version, '4.4.0' ) ) {
+			$factory = new WP_UnitTest_Factory();
+			self::wpSetUpBeforeClass( $factory );
+		}
+
 		self::clear_template_hooks();
 	}
 
 	/**
 	 * Create some test posts (of type property).
+	 *
+	 * Note, this could be called by setUp for each test for WordPress < 4.4.0.
 	 *
 	 * @param WP_UnitTest_Factory $factory An instance of WP_UnitTest_Factory to use.
 	 */
