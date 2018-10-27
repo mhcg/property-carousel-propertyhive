@@ -22,12 +22,16 @@
 class Property_Carousel_Activator {
 	/**
 	 * Helper class constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	private function __construct() {
 	}
 
 	/**
 	 * Helper class clone.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	private function __clone() {
 	}

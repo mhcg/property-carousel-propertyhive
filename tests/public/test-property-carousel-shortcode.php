@@ -178,6 +178,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Shouldn't return anything when there is no data.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_no_data() {
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
@@ -198,6 +199,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * the data.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_basic_with_data() {
 		// generate the shortcode output.
@@ -210,6 +212,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Featured.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_featured_only() {
 		$num_featured = count( self::$test_properties_featured_ids );
@@ -225,6 +228,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Featured.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_not_featured() {
 		$num_not_featured = count( self::$test_property_ids ) - count( self::$test_properties_featured_ids );
@@ -240,6 +244,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Department.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_department_residential_sales() {
 		$post_id = self::$test_property_ids[0];
@@ -256,6 +261,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Department.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_department_residential_lettings() {
 		$post_id = self::$test_property_ids[0];
@@ -272,6 +278,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Department.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_department_commercial() {
 		$post_id = self::$test_property_ids[0];
@@ -288,6 +295,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Department.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_department_invalid() {
 		$post_id = self::$test_property_ids[0];
@@ -304,6 +312,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 * Tests the shortcode attribute Office.
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
+	 * @covers Property_Carousel_Shortcode::query_for_shortcode
 	 */
 	public function test_property_carousel_shortcode_office() {
 		$post_id = self::$test_property_ids[0];

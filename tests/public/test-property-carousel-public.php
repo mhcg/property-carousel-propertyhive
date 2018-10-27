@@ -10,6 +10,8 @@
 
 /**
  * Property_Carousel_Public tests.
+ *
+ * @covers Property_Carousel_Public::<private>
  */
 class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 
@@ -106,6 +108,8 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	 * Tests that the shortcode method just returns nothing if Property Hive not installed.
 	 *
 	 * @covers Property_Carousel_Public::property_carousel_shortcode
+	 * @covers Property_Carousel_Public::get_flexslider_css_handle
+	 * @covers Property_Carousel_Public::get_flexslider_js_handle
 	 */
 	public function test_property_carousel_shortcode_propertyhive_not_installed() {
 		$obj = new Property_Carousel_Public(
@@ -119,6 +123,8 @@ class Tests_Public_Property_Carousel_Public extends WP_UnitTestCase {
 	 * Tests that the shortcode includes the flexslider CSS and JS when installed.
 	 *
 	 * @covers Property_Carousel_Public::property_carousel_shortcode
+	 * @covers Property_Carousel_Public::get_flexslider_css_handle
+	 * @covers Property_Carousel_Public::get_flexslider_js_handle
 	 */
 	public function test_property_carousel_shortcode_propertyhive_installed() {
 		$obj = new Property_Carousel_Public(

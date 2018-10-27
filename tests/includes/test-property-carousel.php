@@ -17,6 +17,10 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	 * Tests the constructor.
 	 *
 	 * @covers Property_Carousel::__construct
+	 * @covers Property_Carousel::load_dependencies
+	 * @covers Property_Carousel::set_locale
+	 * @covers Property_Carousel::define_admin_hooks
+	 * @covers Property_Carousel::define_public_hooks
 	 */
 	public function test_constructor() {
 		$var = new Property_Carousel();
@@ -67,6 +71,7 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	 * Tests the Property_Carousel run() method runs without error.
 	 *
 	 * @covers Property_Carousel::run
+	 * @covers Property_Carousel_Loader::run
 	 */
 	public function test_run() {
 		$obj = new Property_Carousel();

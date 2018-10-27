@@ -38,6 +38,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_action
+	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_action_one() {
 		$obj = new Property_Carousel_Loader();
@@ -58,6 +59,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * Adds several actions and checks they are are in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_action
+	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_action_multiple() {
 		$obj = new Property_Carousel_Loader();
@@ -101,6 +103,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * Test Add Filter method.
 	 *
 	 * @covers Property_Carousel_Loader::add_filter
+	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_filter_one() {
 		$obj = new Property_Carousel_Loader();
@@ -121,6 +124,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * Adds several filters and checks they are are in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_filter
+	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_filter_multiple() {
 		$obj = new Property_Carousel_Loader();
