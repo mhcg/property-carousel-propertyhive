@@ -70,5 +70,5 @@ $property_carousel_loop_item_classes = Property_Carousel_Shortcode::get_property
 	?>
 
 </li>
-
+<?php
 // @codeCoverageIgnoreEnd

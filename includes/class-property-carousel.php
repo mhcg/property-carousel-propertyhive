@@ -142,8 +142,7 @@ class Property_Carousel {
 	private function set_locale() {
 		$this->loader->add_action(
 			'plugins_loaded',
-			'Property_Carousel_I18n',
-			'load_plugin_textdomain'
+			[ 'Property_Carousel_I18n', 'load_plugin_textdomain' ]
 		);
 	}
 
@@ -157,7 +156,10 @@ class Property_Carousel {
 	private function define_admin_hooks() {
 		$plugin_admin = new Property_Carousel_Admin( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'add_admin_notices' );
+		$this->loader->add_action(
+			'admin_init',
+			[ $plugin_admin, 'add_admin_notices' ]
+		);
 	}
 
 	/**
@@ -170,11 +172,11 @@ class Property_Carousel {
 	private function define_public_hooks() {
 		$plugin_public = new Property_Carousel_Public( $this->get_propertyhive_property_carousel(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', [ $plugin_public, 'enqueue_styles' ] );
+		$this->loader->add_action( 'wp_enqueue_scripts', [ $plugin_public, 'enqueue_scripts' ] );
 
-		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
-		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'register_default_template_hooks' );
+		$this->loader->add_action( 'init', [ $plugin_public, 'register_shortcodes' ] );
+		$this->loader->add_action( 'plugins_loaded', [ $plugin_public, 'register_default_template_hooks' ] );
 	}
 
 	/**

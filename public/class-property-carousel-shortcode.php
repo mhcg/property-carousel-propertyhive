@@ -103,7 +103,7 @@ class Property_Carousel_Shortcode {
 					require self::property_carousel_loop_template();
 					?>
 
-				<?php endwhile; // end of the loop. ?>
+				<?php endwhile; ?>
 
 			</ul>
 

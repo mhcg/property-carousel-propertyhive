@@ -38,7 +38,6 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_action
-	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_action_one() {
 		$obj = new Property_Carousel_Loader();
@@ -46,11 +45,10 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 		$hook     = 'my_test_hook';
 		$callback = 'nonsense_callback';
 
-		$result = $obj->add_action( $hook, $this, $callback );
+		$result = $obj->add_action( $hook, [ $this, $callback ] );
 		$this->assertCount( 1, $result );
 
 		$this->assertSame( $result[0]['hook'], $hook );
-		$this->assertSame( $result[0]['callback'], $callback );
 	}
 
 	/**
@@ -59,7 +57,6 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * Adds several actions and checks they are are in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_action
-	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_action_multiple() {
 		$obj = new Property_Carousel_Loader();
@@ -69,41 +66,31 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 		$test_hooks   = array();
 		for ( $i = 0; $i < $num_of_hooks; $i ++ ) {
 			$hook         = "my_test_hook_{$i}";
-			$callback     = "nonsense_callback_{$i}";
-			$test_hooks[] = array(
-				'hook'     => $hook,
-				'callback' => $callback,
-			);
+			$test_hooks[] = $hook;
 		}
 
 		// add the hooks.
 		$result = array();
-		foreach ( $test_hooks as $test_hook ) {
-			$this_hook     = $test_hook['hook'];
-			$this_callback = $test_hook['callback'];
-			$result        = $obj->add_action( $this_hook, $this, $this_callback );
+		foreach ( $test_hooks as $this_hook ) {
+			$this_callback = $this_hook . '_callback';
+			$result        = $obj->add_action( $this_hook, [ $this, $this_callback ] );
 		}
 		$this->assertCount( $num_of_hooks, $result );
 
 		// build results array.
 		// i.e. same format as test data so can check it's the same.
-		$expected = array();
+		$actual = array();
 		foreach ( $result as $result_hook ) {
-			$this_hook     = $result_hook['hook'];
-			$this_callback = $result_hook['callback'];
-			$expected[]    = array(
-				'hook'     => $this_hook,
-				'callback' => $this_callback,
-			);
+			$this_hook = $result_hook['hook'];
+			$actual[]  = $this_hook;
 		}
-		$this->assertSame( $expected, $test_hooks );
+		$this->assertSame( $test_hooks, $actual );
 	}
 
 	/**
 	 * Test Add Filter method.
 	 *
 	 * @covers Property_Carousel_Loader::add_filter
-	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_filter_one() {
 		$obj = new Property_Carousel_Loader();
@@ -111,11 +98,10 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 		$hook     = 'my_test_hook';
 		$callback = 'nonsense_callback';
 
-		$result = $obj->add_filter( $hook, $this, $callback );
+		$result = $obj->add_filter( $hook, [ $this, $callback ] );
 		$this->assertCount( 1, $result );
 
 		$this->assertSame( $result[0]['hook'], $hook );
-		$this->assertSame( $result[0]['callback'], $callback );
 	}
 
 	/**
@@ -124,7 +110,6 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 * Adds several filters and checks they are are in the collection of actions.
 	 *
 	 * @covers Property_Carousel_Loader::add_filter
-	 * @covers Property_Carousel_Loader::add
 	 */
 	public function test_add_filter_multiple() {
 		$obj = new Property_Carousel_Loader();
@@ -134,34 +119,25 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 		$test_hooks   = array();
 		for ( $i = 0; $i < $num_of_hooks; $i ++ ) {
 			$hook         = "my_test_hook_{$i}";
-			$callback     = "nonsense_callback_{$i}";
-			$test_hooks[] = array(
-				'hook'     => $hook,
-				'callback' => $callback,
-			);
+			$test_hooks[] = $hook;
 		}
 
 		// add the hooks.
 		$result = array();
-		foreach ( $test_hooks as $test_hook ) {
-			$this_hook     = $test_hook['hook'];
-			$this_callback = $test_hook['callback'];
-			$result        = $obj->add_filter( $this_hook, $this, $this_callback );
+		foreach ( $test_hooks as $this_hook ) {
+			$this_callback = $this_hook . '_callback';
+			$result        = $obj->add_filter( $this_hook, [ $this, $this_callback ] );
 		}
 		$this->assertCount( $num_of_hooks, $result );
 
-		// build results array
+		// build results array.
 		// i.e. same format as test data so can check it's the same.
-		$expected = array();
+		$actual = array();
 		foreach ( $result as $result_hook ) {
-			$this_hook     = $result_hook['hook'];
-			$this_callback = $result_hook['callback'];
-			$expected[]    = array(
-				'hook'     => $this_hook,
-				'callback' => $this_callback,
-			);
+			$this_hook = $result_hook['hook'];
+			$actual[]  = $this_hook;
 		}
-		$this->assertSame( $expected, $test_hooks );
+		$this->assertSame( $test_hooks, $actual );
 	}
 
 
@@ -174,7 +150,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 */
 	public function test_run_actions() {
 		$obj = new Property_Carousel_Loader();
-		$obj->add_action( 'my_test_hook', $this, 'my_test_hook' );
+		$obj->add_action( 'my_test_hook', [ $this, 'my_test_hook' ] );
 		$obj->run();
 
 		$this->test_counter = 0;
@@ -192,7 +168,7 @@ class Tests_Includes_Property_Carousel_Loader extends WP_UnitTestCase {
 	 */
 	public function test_run_filters() {
 		$obj    = new Property_Carousel_Loader();
-		$result = $obj->add_filter( 'my_test_hook', $this, 'my_test_hook' );
+		$result = $obj->add_filter( 'my_test_hook', [ $this, 'my_test_hook' ] );
 		$this->assertCount( 1, $result );
 		$obj->run();
 
