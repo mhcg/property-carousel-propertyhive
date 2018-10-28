@@ -82,7 +82,16 @@ class Property_Carousel_Shortcode {
 	 * @return string FlexSlider HTML or empty string if Property Hive plugin isn't active
 	 */
 	public static function property_carousel_shortcode_output( $attributes = [] ) {
-		$properties = self::query_for_shortcode( $attributes );
+		/**
+		 * Hook into the shortcode WP_Query call.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args WP_Query query.
+		 * @param array $attributes Shortcode attributes.
+		 */
+		$query      = apply_filters( 'property_carousel_shortcode_query', self::query_for_shortcode( $attributes ) );
+		$properties = new WP_Query( $query );
 
 		if ( ! $properties->have_posts() ) {
 			return '';
@@ -162,9 +171,14 @@ class Property_Carousel_Shortcode {
 	/**
 	 * Build a WP_Query object for the shortcode attributes.
 	 *
+	 * @uses Property_Carousel_Shortcode::meta_query_for_on_market()
+	 * @uses Property_Carousel_Shortcode::meta_query_for_featured()
+	 * @uses Property_Carousel_Shortcode::meta_query_for_department()
+	 * @uses Property_Carousel_Shortcode::meta_query_for_office_id()
+
 	 * @param array $attributes Shortcode attributes array.
 	 *
-	 * @return WP_Query Build WP_Query object.
+	 * @return array Query for WP_Query object.
 	 */
 	private static function query_for_shortcode( $attributes ) {
 		/**
@@ -188,14 +202,57 @@ class Property_Carousel_Shortcode {
 		$office_id  = $extract['office_id'];
 
 		/**
-		 * Build and run the WP_Query stuff
+		 * Build the WP_Query stuff.
+		 *
+		 * Only on-market at the very least, plus filtered by additional shortcode attributes.
 		 */
-		$meta_query = array(
-			array(
-				'key'   => '_on_market',
-				'value' => 'yes',
-			),
+		$meta_query = array();
+		$meta_query = self::meta_query_for_on_market( $meta_query, 'yes' );
+		$meta_query = self::meta_query_for_featured( $meta_query, $featured );
+		$meta_query = self::meta_query_for_department( $meta_query, $department );
+		$meta_query = self::meta_query_for_office_id( $meta_query, $office_id );
+		$query      = array(
+			'post_type'           => 'property',
+			'post_status'         => 'publish',
+			'ignore_sticky_posts' => 1,
+			'orderby'             => 'rand',
+			'order'               => 'DESC',
+			'meta_query'          => $meta_query, // @codingStandardsIgnoreLine WordPress.VIP.SlowDBQuery.slow_db_query
+			'posts_per_page'      => 10,
 		);
+
+		return $query;
+	}
+
+	/**
+	 * Add to supplied meta_query, filter for Featured.
+	 *
+	 * @param array  $meta_query Current meta_query.
+	 * @param string $on_market On-market (or not), or blank for all.
+	 *
+	 * @return array Amended meta_query.
+	 */
+	private static function meta_query_for_on_market( $meta_query, $on_market = 'yes' ) {
+		if ( ! empty( $on_market ) ) {
+			$only_on_market = filter_var( $on_market, FILTER_VALIDATE_BOOLEAN );
+			$meta_query[]   = array(
+				'key'   => '_on_market',
+				'value' => ( true === $only_on_market ? 'yes' : 'no' ),
+			);
+		}
+
+		return $meta_query;
+	}
+
+	/**
+	 * Add to supplied meta_query, filter for Featured.
+	 *
+	 * @param array  $meta_query Current meta_query.
+	 * @param string $featured Featured (or not), or blank for all.
+	 *
+	 * @return array Amended meta_query.
+	 */
+	private static function meta_query_for_featured( $meta_query, $featured ) {
 		if ( ! empty( $featured ) ) {
 			$only_featured = filter_var( $featured, FILTER_VALIDATE_BOOLEAN );
 			$meta_query[]  = array(
@@ -203,6 +260,19 @@ class Property_Carousel_Shortcode {
 				'value' => ( true === $only_featured ? 'yes' : 'no' ),
 			);
 		}
+
+		return $meta_query;
+	}
+
+	/**
+	 * Add to supplied meta_query, filter for Department.
+	 *
+	 * @param array  $meta_query Current meta_query.
+	 * @param string $department Department (residential-sales, residential-lettings or commercial), or blank for all.
+	 *
+	 * @return array Amended meta_query.
+	 */
+	private static function meta_query_for_department( $meta_query, $department ) {
 		if ( ! empty( $department ) ) {
 			$all_departments = array(
 				'residential-sales',
@@ -217,6 +287,19 @@ class Property_Carousel_Shortcode {
 				);
 			}
 		}
+
+		return $meta_query;
+	}
+
+	/**
+	 * Add to supplied meta_query, filter for Office ID.
+	 *
+	 * @param array  $meta_query Current meta_query.
+	 * @param string $office_id Office ID, or blank for all.
+	 *
+	 * @return array Amended meta_query.
+	 */
+	private static function meta_query_for_office_id( $meta_query, $office_id ) {
 		if ( ! empty( $office_id ) ) {
 			$meta_query[] = array(
 				'key'     => '_office_id',
@@ -224,28 +307,7 @@ class Property_Carousel_Shortcode {
 				'compare' => 'IN',
 			);
 		}
-		$args = array(
-			'post_type'           => 'property',
-			'post_status'         => 'publish',
-			'ignore_sticky_posts' => 1,
-			'orderby'             => 'rand',
-			'order'               => 'DESC',
-			'meta_query'          => $meta_query, // @codingStandardsIgnoreLine WordPress.VIP.SlowDBQuery.slow_db_query
-			'posts_per_page'      => 10,
-		);
 
-		/**
-		 * Hook into the shortcode WP_Query call.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @param array $args WP_Query query.
-		 * @param array $attributes Shortcode attributes.
-		 */
-		$properties = new WP_Query(
-			apply_filters( 'property_carousel_shortcode_query', $args, $attributes )
-		);
-
-		return $properties;
+		return $meta_query;
 	}
 }
