@@ -230,7 +230,7 @@ class Property_Carousel_Shortcode {
 	 *
 	 * @return array Fully formed meta_query for use in WP_Query object.
 	 */
-	private static function build_meta_query( $on_market, $featured, $department, $office_id ): array {
+	private static function build_meta_query( $on_market, $featured, $department, $office_id ) {
 		$meta_query = array();
 		$meta_query = self::meta_query_for_on_market( $meta_query, $on_market );
 		$meta_query = self::meta_query_for_featured( $meta_query, $featured );
