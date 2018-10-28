@@ -206,11 +206,7 @@ class Property_Carousel_Shortcode {
 		 *
 		 * Only on-market at the very least, plus filtered by additional shortcode attributes.
 		 */
-		$meta_query = array();
-		$meta_query = self::meta_query_for_on_market( $meta_query, 'yes' );
-		$meta_query = self::meta_query_for_featured( $meta_query, $featured );
-		$meta_query = self::meta_query_for_department( $meta_query, $department );
-		$meta_query = self::meta_query_for_office_id( $meta_query, $office_id );
+		$meta_query = self::build_meta_query( 'yes', $featured, $department, $office_id );
 		$query      = array(
 			'post_type'           => 'property',
 			'post_status'         => 'publish',
@@ -222,6 +218,26 @@ class Property_Carousel_Shortcode {
 		);
 
 		return $query;
+	}
+
+	/**
+	 * Build meta_query for WP_Query object.
+	 *
+	 * @param string $on_market On-market (or not), or blank for all.
+	 * @param string $featured Featured (or not), or blank for all.
+	 * @param string $department Department (residential-sales, residential-lettings or commercial), or blank for all.
+	 * @param string $office_id Office ID, or blank for all.
+	 *
+	 * @return array Fully formed meta_query for use in WP_Query object.
+	 */
+	private static function build_meta_query( $on_market, $featured, $department, $office_id ) {
+		$meta_query = array();
+		$meta_query = self::meta_query_for_on_market( $meta_query, $on_market );
+		$meta_query = self::meta_query_for_featured( $meta_query, $featured );
+		$meta_query = self::meta_query_for_department( $meta_query, $department );
+		$meta_query = self::meta_query_for_office_id( $meta_query, $office_id );
+
+		return $meta_query;
 	}
 
 	/**
