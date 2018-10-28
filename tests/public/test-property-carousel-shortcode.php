@@ -179,6 +179,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_on_market
 	 */
 	public function test_property_carousel_shortcode_no_data() {
 		$output = Property_Carousel_Shortcode::property_carousel_shortcode_output(
@@ -200,6 +201,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_on_market
 	 */
 	public function test_property_carousel_shortcode_basic_with_data() {
 		// generate the shortcode output.
@@ -213,6 +215,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_featured
 	 */
 	public function test_property_carousel_shortcode_featured_only() {
 		$num_featured = count( self::$test_properties_featured_ids );
@@ -229,6 +232,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_featured
 	 */
 	public function test_property_carousel_shortcode_not_featured() {
 		$num_not_featured = count( self::$test_property_ids ) - count( self::$test_properties_featured_ids );
@@ -245,6 +249,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_residential_sales() {
 		$post_id = self::$test_property_ids[0];
@@ -262,6 +267,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_residential_lettings() {
 		$post_id = self::$test_property_ids[0];
@@ -279,6 +285,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_commercial() {
 		$post_id = self::$test_property_ids[0];
@@ -296,6 +303,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_invalid() {
 		$post_id = self::$test_property_ids[0];
@@ -313,6 +321,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::meta_query_for_office_id
 	 */
 	public function test_property_carousel_shortcode_office() {
 		$post_id = self::$test_property_ids[0];
