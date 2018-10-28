@@ -179,6 +179,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_on_market
 	 */
 	public function test_property_carousel_shortcode_no_data() {
@@ -201,6 +202,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_on_market
 	 */
 	public function test_property_carousel_shortcode_basic_with_data() {
@@ -215,6 +217,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_featured
 	 */
 	public function test_property_carousel_shortcode_featured_only() {
@@ -232,6 +235,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_featured
 	 */
 	public function test_property_carousel_shortcode_not_featured() {
@@ -249,6 +253,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_residential_sales() {
@@ -267,6 +272,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_residential_lettings() {
@@ -285,6 +291,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_commercial() {
@@ -303,6 +310,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_department
 	 */
 	public function test_property_carousel_shortcode_department_invalid() {
@@ -321,6 +329,7 @@ class Tests_Public_Property_Carousel_Shortcode extends \WP_UnitTestCase {
 	 *
 	 * @covers Property_Carousel_Shortcode::property_carousel_shortcode_output
 	 * @covers Property_Carousel_Shortcode::query_for_shortcode
+	 * @covers Property_Carousel_Shortcode::build_meta_query
 	 * @covers Property_Carousel_Shortcode::meta_query_for_office_id
 	 */
 	public function test_property_carousel_shortcode_office() {
