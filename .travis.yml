@@ -3,7 +3,7 @@ dist: trusty
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=e9f0772688f0d4b483d623b470d6cc86d3131b30cfc22dc2d6a9b0d444ff8f84
+    - CC_TEST_REPORTER_ID=81fac79ba6b0198f2ca3b5db836f3837ccf1e832e77dc892f9b01719770487ed
     - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
 
 language: php

@@ -5,11 +5,11 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/includes
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/includes
  */
 
 /**
@@ -22,8 +22,8 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/includes
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/includes
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel {
@@ -43,9 +43,9 @@ class Property_Carousel {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string $propertyhive_property_carousel The string used to uniquely identify this plugin.
+	 * @var      string $property_carousel_propertyhive The string used to uniquely identify this plugin.
 	 */
-	protected $propertyhive_property_carousel;
+	protected $property_carousel_propertyhive;
 
 	/**
 	 * The current version of the plugin.
@@ -74,7 +74,7 @@ class Property_Carousel {
 	 */
 	public function __construct( $version = '1.0.0' ) {
 		$this->version                        = $version;
-		$this->propertyhive_property_carousel = 'propertyhive-property-carousel';
+		$this->property_carousel_propertyhive = 'property-carousel-propertyhive';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -87,10 +87,10 @@ class Property_Carousel {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Propertyhive_Property_Carousel_Loader. Orchestrates the hooks of the plugin.
-	 * - Propertyhive_Property_Carousel_i18n. Defines internationalization functionality.
-	 * - Propertyhive_Property_Carousel_Admin. Defines all hooks for the admin area.
-	 * - Propertyhive_Property_Carousel_Public. Defines all hooks for the public side of the site.
+	 * - Property_Carousel_Propertyhive_Loader. Orchestrates the hooks of the plugin.
+	 * - Property_Carousel_Propertyhive_i18n. Defines internationalization functionality.
+	 * - Property_Carousel_Propertyhive_Admin. Defines all hooks for the admin area.
+	 * - Property_Carousel_Propertyhive_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -133,7 +133,7 @@ class Property_Carousel {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Propertyhive_Property_Carousel_i18n class in order to set the domain and to register the hook
+	 * Uses the Property_Carousel_Propertyhive_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -154,7 +154,7 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Property_Carousel_Admin( $this->get_propertyhive_property_carousel(), $this->get_version() );
+		$plugin_admin = new Property_Carousel_Admin( $this->get_property_carousel_propertyhive(), $this->get_version() );
 
 		$this->loader->add_action(
 			'admin_init',
@@ -170,7 +170,7 @@ class Property_Carousel {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		$plugin_public = new Property_Carousel_Public( $this->get_propertyhive_property_carousel(), $this->get_version() );
+		$plugin_public = new Property_Carousel_Public( $this->get_property_carousel_propertyhive(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', [ $plugin_public, 'enqueue_styles' ] );
 		$this->loader->add_action( 'wp_enqueue_scripts', [ $plugin_public, 'enqueue_scripts' ] );
@@ -195,8 +195,8 @@ class Property_Carousel {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_propertyhive_property_carousel() {
-		return $this->propertyhive_property_carousel;
+	public function get_property_carousel_propertyhive() {
+		return $this->property_carousel_propertyhive;
 	}
 
 	/**

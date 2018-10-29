@@ -2,11 +2,11 @@
 /**
  * The template for displaying a single property within the property carousel.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/public/partials
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/public/partials
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 

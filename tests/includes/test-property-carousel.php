@@ -28,13 +28,13 @@ class Tests_Includes_Property_Carousel extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tests get_propertyhive_property_carousel().
+	 * Tests get_property_carousel_propertyhive().
 	 *
-	 * @covers Property_Carousel::get_propertyhive_property_carousel
+	 * @covers Property_Carousel::get_property_carousel_propertyhive
 	 */
-	public function test_get_propertyhive_property_carousel() {
+	public function test_get_property_carousel_propertyhive() {
 		$obj = new Property_Carousel();
-		$this->assertSame( 'propertyhive-property-carousel', $obj->get_propertyhive_property_carousel() );
+		$this->assertSame( 'property-carousel-propertyhive', $obj->get_property_carousel_propertyhive() );
 	}
 
 	/**

@@ -1,8 +1,8 @@
-# Property Hive - Property Carousel
+# Property Carousel for Property Hive
 
-[![Travis (.com)](https://img.shields.io/travis/com/mhcg/propertyhive-property-carousel.svg)](https://travis-ci.com/mhcg/propertyhive-property-carousel)
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/mhcg/propertyhive-property-carousel.svg)](https://codeclimate.com/github/mhcg/propertyhive-property-carousel)
-[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/mhcg/propertyhive-property-carousel.svg)](https://codeclimate.com/github/mhcg/propertyhive-property-carousel)
+[![Travis (.com)](https://img.shields.io/travis/com/mhcg/property-carousel-propertyhive.svg)](https://travis-ci.com/mhcg/property-carousel-propertyhive)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/mhcg/property-carousel-propertyhive.svg)](https://codeclimate.com/github/mhcg/property-carousel-propertyhive)
+[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/mhcg/property-carousel-propertyhive.svg)](https://codeclimate.com/github/mhcg/property-carousel-propertyhive)
 
 WordPress plugin for [Property Hive](https://github.com/propertyhive/WP-Property-Hive) to add a carousel feature.
 
