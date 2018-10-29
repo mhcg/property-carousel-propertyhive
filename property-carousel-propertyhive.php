@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Property Carousel for Property Hive
- * Plugin URI:        https://wordpress.org/plugins/property-carousel-propertyhive/
+ * Plugin URI:        https://wordpress.org/plugins/property-carousel-for-propertyhive/
  * Description:       Property Hive extension to add a carousel feature.
  * Version:           1.0.0
  * Author:            MHCG LTD

@@ -27,7 +27,7 @@
  */
 class Property_Carousel_I18n {
 
-	const TEXT_DOMAIN = 'property-carousel-propertyhive';
+	const TEXT_DOMAIN = 'property-carousel-for-propertyhive';
 
 	/**
 	 * Helper class constructor.
