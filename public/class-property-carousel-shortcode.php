@@ -2,11 +2,11 @@
 /**
  * The property carousel functionality of the plugin.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/public
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/public
  */
 
 /**
@@ -14,8 +14,8 @@
  *
  * Defines the shortcode and everything related to its functionality.
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/public
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/public
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Shortcode {
@@ -103,7 +103,7 @@ class Property_Carousel_Shortcode {
 
 		if ( $properties->have_posts() ) : ?>
 
-			<ul class="propertyhive-property-carousel properties clear slides">
+			<ul class="property-carousel-propertyhive properties clear slides">
 
 				<?php while ( $properties->have_posts() ) : ?>
 
@@ -120,7 +120,7 @@ class Property_Carousel_Shortcode {
 
 		<?php
 		wp_reset_postdata();
-		return '<div class="propertyhive-property-carousel-shortcode flexslider">' . ob_get_clean() . '</div>';
+		return '<div class="property-carousel-propertyhive-shortcode flexslider">' . ob_get_clean() . '</div>';
 	}
 
 	/**

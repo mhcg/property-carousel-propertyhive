@@ -19,7 +19,7 @@ class Tests_Includes_Property_Carousel_Deactivator extends WP_UnitTestCase {
 	 * @covers Property_Carousel_Deactivator::deactivate
 	 */
 	public function test_deactivate() {
-		propertyhive_property_carousel_deactivate();
+		property_carousel_propertyhive_deactivate();
 		// shouldn't crash.
 		$this->assertTrue( true );
 	}

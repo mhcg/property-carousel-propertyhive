@@ -2,11 +2,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/public
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/public
  */
 
 /**
@@ -14,8 +14,8 @@
  *
  * Defines the plugin name, version, scripts, css and shortcodes.
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/public
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/public
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Public {
@@ -25,9 +25,9 @@ class Property_Carousel_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string $propertyhive_property_carousel The ID of this plugin.
+	 * @var      string $property_carousel_propertyhive The ID of this plugin.
 	 */
-	private $propertyhive_property_carousel;
+	private $property_carousel_propertyhive;
 
 	/**
 	 * The version of this plugin.
@@ -43,11 +43,11 @@ class Property_Carousel_Public {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $propertyhive_property_carousel The name of the plugin.
+	 * @param      string $property_carousel_propertyhive The name of the plugin.
 	 * @param      string $version The version of this plugin.
 	 */
-	public function __construct( $propertyhive_property_carousel, $version ) {
-		$this->propertyhive_property_carousel = $propertyhive_property_carousel;
+	public function __construct( $property_carousel_propertyhive, $version ) {
+		$this->property_carousel_propertyhive = $property_carousel_propertyhive;
 		$this->version                        = $version;
 	}
 
@@ -58,7 +58,7 @@ class Property_Carousel_Public {
 	 */
 	public function enqueue_styles() {
 		wp_register_style(
-			$this->propertyhive_property_carousel,
+			$this->property_carousel_propertyhive,
 			plugin_dir_url( __FILE__ ) . 'css/property-carousel-public.css',
 			$this->get_flexslider_css_handle(),
 			$this->version,
@@ -73,7 +73,7 @@ class Property_Carousel_Public {
 	 */
 	public function enqueue_scripts() {
 		wp_register_script(
-			$this->propertyhive_property_carousel,
+			$this->property_carousel_propertyhive,
 			plugin_dir_url( __FILE__ ) . 'js/property-carousel-public.js',
 			array( 'jquery', $this->get_flexslider_js_handle() ),
 			$this->version,
@@ -118,10 +118,10 @@ class Property_Carousel_Public {
 
 		// include the relevant styles and scripts and delegate the output the Shortcode helper.
 		wp_enqueue_style( $this->get_flexslider_css_handle() );
-		wp_enqueue_style( $this->propertyhive_property_carousel );
+		wp_enqueue_style( $this->property_carousel_propertyhive );
 
 		wp_enqueue_script( $this->get_flexslider_js_handle() );
-		wp_enqueue_script( $this->propertyhive_property_carousel );
+		wp_enqueue_script( $this->property_carousel_propertyhive );
 
 		return Property_Carousel_Shortcode::property_carousel_shortcode_output( $attributes );
 	}

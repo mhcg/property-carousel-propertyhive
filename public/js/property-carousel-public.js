@@ -2,7 +2,7 @@
 	'use strict';
 
     $( window ).load(function() {
-        $('.propertyhive-property-carousel-shortcode').flexslider({
+        $('.property-carousel-propertyhive-shortcode').flexslider({
             itemMargin: 5,
         });
     });

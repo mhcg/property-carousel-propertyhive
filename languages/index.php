@@ -2,7 +2,7 @@
 /**
  * Silence is golden.
  *
- * @package Propertyhive_Property_Carousel
+ * @package Property_Carousel_Propertyhive
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

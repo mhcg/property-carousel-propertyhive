@@ -2,11 +2,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/admin
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/admin
  */
 
 /**
@@ -15,8 +15,8 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/admin
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/admin
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Admin {
@@ -26,9 +26,9 @@ class Property_Carousel_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string $propertyhive_property_carousel The ID of this plugin.
+	 * @var      string $property_carousel_propertyhive The ID of this plugin.
 	 */
-	private $propertyhive_property_carousel;
+	private $property_carousel_propertyhive;
 
 	/**
 	 * The version of this plugin.
@@ -44,11 +44,11 @@ class Property_Carousel_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $propertyhive_property_carousel The name of this plugin.
+	 * @param      string $property_carousel_propertyhive The name of this plugin.
 	 * @param      string $version The version of this plugin.
 	 */
-	public function __construct( $propertyhive_property_carousel, $version ) {
-		$this->propertyhive_property_carousel = $propertyhive_property_carousel;
+	public function __construct( $property_carousel_propertyhive, $version ) {
+		$this->property_carousel_propertyhive = $property_carousel_propertyhive;
 		$this->version                        = $version;
 	}
 

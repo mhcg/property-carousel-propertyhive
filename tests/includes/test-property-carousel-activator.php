@@ -19,7 +19,7 @@ class Tests_Includes_Property_Carousel_Activator extends WP_UnitTestCase {
 	 * @covers Property_Carousel_Activator::activate
 	 */
 	public function test_activate() {
-		propertyhive_property_carousel_activate();
+		property_carousel_propertyhive_activate();
 		// shouldn't crash.
 		$this->assertTrue( true );
 	}

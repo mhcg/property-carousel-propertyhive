@@ -1,5 +1,5 @@
 /**
- * Property Hive Property Carousel CSS
+ * Property Carousel for Property Hive CSS
  */
 
 /* Override something in the flexslider CSS */
@@ -8,13 +8,13 @@ li.property-carousel-property.clear {
 }
 
 /* Make things a bit more carousel looking */
-div.propertyhive-property-carousel-shortcode ul.propertyhive-property-carousel.properties li .thumbnail {
+div.property-carousel-propertyhive-shortcode ul.property-carousel-propertyhive.properties li .thumbnail {
     width: 35%;
     float: left;
     margin-top: 15px;
     margin-bottom: 5px;
 }
-div.propertyhive-property-carousel-shortcode ul.propertyhive-property-carousel.properties li .details {
+div.property-carousel-propertyhive-shortcode ul.property-carousel-propertyhive.properties li .details {
     width: 63%;
     float: right;
 }

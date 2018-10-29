@@ -1,7 +1,7 @@
-=== Property Hive Property Carousel ===
+=== Property Carousel for Property Hive ===
 Contributors: markheydon
 Donate link: http://bit.ly/mhcg-open-source-project-donation
-Tags: estate agent, property, carousel, propertyhive
+Tags: estate agent, property, carousel, propertyhive, property carousel
 Tested up to: 4.9.8
 Requires at least: 4.7
 Requires PHP: 5.6

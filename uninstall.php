@@ -12,10 +12,10 @@
  * - Repeat with other user roles. Best directly by using the links/query string parameters.
  * - Repeat things for multisite. Once for a single site in the network, once sitewide.
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
+ * @package    Property_Carousel_Propertyhive
  */
 
 // If uninstall not called from WordPress, then exit.

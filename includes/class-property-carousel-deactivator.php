@@ -2,11 +2,11 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       https://github.com/mhcg/propertyhive-property-carousel
+ * @link       https://github.com/mhcg/property-carousel-propertyhive
  * @since      1.0.0
  *
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/includes
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/includes
  */
 
 /**
@@ -15,8 +15,8 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Propertyhive_Property_Carousel
- * @subpackage Propertyhive_Property_Carousel/includes
+ * @package    Property_Carousel_Propertyhive
+ * @subpackage Property_Carousel_Propertyhive/includes
  * @author     MHCG LTD <contact@mhcg.co.uk>
  */
 class Property_Carousel_Deactivator {
