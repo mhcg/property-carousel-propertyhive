@@ -5,7 +5,7 @@ Tags: estate agent, property, carousel, propertyhive, property carousel
 Tested up to: 4.9.8
 Requires at least: 4.7
 Requires PHP: 5.6
-Stable tag: 4.3
+Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
