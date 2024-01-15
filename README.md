@@ -1,6 +1,7 @@
 # Property Carousel for Property Hive
 
-[![Travis (.com)](https://img.shields.io/travis/com/mhcg/property-carousel-propertyhive.svg)](https://travis-ci.com/mhcg/property-carousel-propertyhive)
+***Update January 2024**: I'm no longer invovled in any websites sites where I'm using this plugin, and in fact no longer using the wp-property plugin on any sites either, therefore no longer in a position to keep this project active.*
+
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/mhcg/property-carousel-propertyhive.svg)](https://codeclimate.com/github/mhcg/property-carousel-propertyhive)
 [![Code Climate coverage](https://img.shields.io/codeclimate/coverage/mhcg/property-carousel-propertyhive.svg)](https://codeclimate.com/github/mhcg/property-carousel-propertyhive)
 
